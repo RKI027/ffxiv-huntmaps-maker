@@ -1,0 +1,7 @@
+pyyaml
+fire
+requests
+pillow
+pyperclip
+flake8
+black

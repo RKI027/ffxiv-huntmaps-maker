@@ -1,0 +1,255 @@
+tool:
+    textools_path: C:\Users\HADES\Documents\TexTools\Saved\UI\Maps
+    project_path: C:\Users\HADES\Documents\Projects\ffxiv-huntmaps\Saved\UI\Maps
+    imagemagick_path: C:\Program Files\ImageMagick-7.0.9-Q16\magick.EXE
+    preview_url_template: https://raw.githubusercontent.com/RKI027/ffxiv-huntmaps/master/Saved/UI/Maps/{region}/{zone}/{file}_m.png
+
+marker:
+    size: 40
+    inner_size_scale: 0.4
+    shadow_offset: (3, 3)
+    shadow_scale: 1.0
+    shadow_color: '#737373'
+    shadow_iterations: 7
+    shadow_direction: radial
+
+legend:
+    inner_offset: (15, 15)
+    shadow_offset: (1, 1)
+    shadow_scale: 1.0
+    column_spacing: 30
+    line_spacing: 7
+    mark_scale: 0.95
+    font_stroke: 1
+    border_space: (5, 5)
+    font_size: 30
+    font: C:\WINDOWS\FONTS\CORBELI.TTF
+    shadow_color: '#444444'
+    shadow_iterations: 7
+
+colors:
+    B1: lightblue
+    B2: royalblue
+    A1: orange
+    A2: yellow
+    S: red
+    SS: '#ff0099'
+    SSs: '#ff99ff'
+
+expansions:
+    ARR: A Realm Reborn
+    HW: Heavensward
+    SB: Stormblood
+    SHB: Shadowbringers
+
+zones:
+    Middle La Noscea:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (700, 1300)
+    Lower La Noscea:
+        expansion: ARR
+        landmine: true
+        legend:
+            rows: 4
+            position: (1400, 1285)
+    Eastern La Noscea:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (545, 1705)
+    Western La Noscea:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1180, 1565)
+    Upper La Noscea:
+        expansion: ARR
+        landmine: true
+        legend:
+            rows: 4
+            position: (600, 1425)
+    Outer La Noscea:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1410, 605)
+    Central Shroud:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (400, 1340)
+    East Shroud:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (425, 665)
+    South Shroud:
+        expansion: ARR
+        landmine: true
+        legend:
+            rows: 4
+            position: (1140, 1380)
+    North Shroud:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1310, 1495)
+    Western Thanalan:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (460, 1020)
+    Central Thanalan:
+        expansion: ARR
+        landmine: true
+        legend:
+            rows: 4
+            position: (485, 1380)
+    Eastern Thanalan:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1000, 1500)
+    Southern Thanalan:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1300, 1210)
+    Northern Thanalan:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (510, 1280)
+    Mor Dhona:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1110, 960)
+    Coerthas Central Highlands:
+        expansion: ARR
+        landmine: false
+        legend:
+            rows: 4
+            position: (1180, 1600)
+    Coerthas Western Highlands:
+        expansion: HW
+        landmine: true
+        legend:
+            rows: 4
+            position: (125, 1630)
+    The Sea of Clouds:
+        expansion: HW
+        landmine: false
+        legend:
+            rows: 4
+            position: (560, 1850)
+    Azys Lla:
+        expansion: HW
+        landmine: false
+        legend:
+            rows: 4
+            position: (45, 1825)
+    The Dravanian Forelands:
+        expansion: HW
+        landmine: false
+        legend:
+            rows: 4
+            position: (595, 1855)
+    The Dravanian Hinterlands:
+        expansion: HW
+        landmine: false
+        legend:
+            rows: 4
+            position: (1200, 190)
+    The Churning Mists: 
+        expansion: HW
+        landmine: false
+        legend:
+            rows: 4
+            position: (1370, 215)
+    The Fringes:
+        expansion: SB
+        landmine: false
+        legend:
+            rows: 4
+            position: (80, 1675)
+    The Peaks:
+        expansion: SB
+        landmine: false
+        legend:
+            rows: 4
+            position: (1400, 1000)
+    The Lochs:
+        expansion: SB
+        landmine: false
+        legend:
+            rows: 4
+            position: (225, 1800)
+    The Ruby Sea:
+        expansion: SB
+        landmine: false
+        legend:
+            rows: 4
+            position: (65, 1595)
+    Yanxia:
+        expansion: SB
+        landmine: true
+        legend:
+            rows: 4
+            position: (80, 1800)
+    The Azim Steppe:
+        expansion: SB
+        landmine: true
+        legend:
+            rows: 4
+            position: (1340, 1820)
+    Lakeland:
+        expansion: SHB
+        landmine: false
+        legend:
+            rows: 4
+            position: (55, 1370)
+    Kholusia:
+        expansion: SHB
+        landmine: false
+        legend:
+            rows: 4
+            position: (1290, 1825)
+    Amh Araeng:
+        expansion: SHB
+        landmine: true
+        legend:
+            rows: 4
+            position: (105, 1720)
+    Il Mheg:
+        expansion: SHB
+        landmine: true
+        legend:
+            rows: 4
+            position: (1320, 1570)
+    The Rak'tika Greatwood:
+        expansion: SHB
+        landmine: false
+        legend:
+            rows: 4
+            position: (235, 340)
+    The Tempest:
+        expansion: SHB
+        landmine: false
+        legend:
+            rows: 7
+            position: (60, 1640)
