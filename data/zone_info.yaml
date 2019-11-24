@@ -1,0 +1,140 @@
+Amh Araeng:
+  filename: n4f300
+  region: Norvrandt
+  scale: 100
+Azys Lla:
+  filename: a2f200
+  region: Abalathia's Spine
+  scale: 95
+Central Shroud:
+  filename: f1f100
+  region: The Black Shroud
+  scale: 100
+Central Thanalan:
+  filename: w1f200
+  region: Thanalan
+  scale: 100
+Coerthas Central Highlands:
+  filename: r1f100
+  region: Coerthas
+  scale: 100
+Coerthas Western Highlands:
+  filename: r2f100
+  region: Coerthas
+  scale: 95
+East Shroud:
+  filename: f1f200
+  region: The Black Shroud
+  scale: 100
+Eastern La Noscea:
+  filename: s1f301
+  region: La Noscea
+  scale: 100
+Eastern Thanalan:
+  filename: w1f300
+  region: Thanalan
+  scale: 100
+Il Mheg:
+  filename: n4f400
+  region: Norvrandt
+  scale: 100
+Kholusia:
+  filename: n4f200
+  region: Norvrandt
+  scale: 100
+Lakeland:
+  filename: n4f100
+  region: Norvrandt
+  scale: 100
+Lower La Noscea:
+  filename: s1f200
+  region: La Noscea
+  scale: 100
+Middle La Noscea:
+  filename: s1f100
+  region: La Noscea
+  scale: 100
+Mor Dhona:
+  filename: l1f101
+  region: Mor Dhona
+  scale: 100
+North Shroud:
+  filename: f1f400
+  region: The Black Shroud
+  scale: 100
+Northern Thanalan:
+  filename: w1f500
+  region: Thanalan
+  scale: 100
+Outer La Noscea:
+  filename: s1f600
+  region: La Noscea
+  scale: 100
+South Shroud:
+  filename: f1f300
+  region: The Black Shroud
+  scale: 100
+Southern Thanalan:
+  filename: w1f401
+  region: Thanalan
+  scale: 100
+The Azim Steppe:
+  filename: e3f300
+  region: Othard
+  scale: 100
+The Churning Mists:
+  filename: d2f300
+  region: Dravania
+  scale: 95
+The Dravanian Forelands:
+  filename: d2f100
+  region: Dravania
+  scale: 95
+The Dravanian Hinterlands:
+  filename: d2f200
+  region: Dravania
+  scale: 95
+The Fringes:
+  filename: g3f100
+  region: Gyr Abania
+  scale: 100
+The Lochs:
+  filename: g3f300
+  region: Gyr Abania
+  scale: 100
+The Peaks:
+  filename: g3f200
+  region: Gyr Abania
+  scale: 100
+The Rak'tika Greatwood:
+  filename: n4f500
+  region: Norvrandt
+  scale: 100
+The Ruby Sea:
+  filename: e3f100
+  region: Othard
+  scale: 100
+The Sea of Clouds:
+  filename: a2f100
+  region: Abalathia's Spine
+  scale: 95
+The Tempest:
+  filename: n4f600
+  region: Norvrandt
+  scale: 100
+Upper La Noscea:
+  filename: s1f500
+  region: La Noscea
+  scale: 100
+Western La Noscea:
+  filename: s1f400
+  region: La Noscea
+  scale: 100
+Western Thanalan:
+  filename: w1f100
+  region: Thanalan
+  scale: 100
+Yanxia:
+  filename: e3f200
+  region: Othard
+  scale: 100
