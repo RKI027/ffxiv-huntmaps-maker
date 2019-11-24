@@ -40,7 +40,7 @@ From there, you can call the same methods. `MapAnnotator.annotate_map` will inst
 
 Information on commands, their function and use is available through the tool.
 
-```python
+```cmd
 python annotate.py [command] --help
 ```
 
