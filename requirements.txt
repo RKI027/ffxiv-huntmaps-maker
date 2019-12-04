@@ -1,7 +1,6 @@
-pyyaml
 fire
-requests
+numpy
 pillow
 pyperclip
-flake8
-black
+pyyaml
+requests

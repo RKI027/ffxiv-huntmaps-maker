@@ -12,6 +12,7 @@ import subprocess
 import yaml
 
 import fire
+import numpy as np
 import pyperclip
 from PIL import Image, ImageDraw
 
@@ -48,6 +49,7 @@ class MapAnnotator:
 
     def _get_path(self, name, project=False, backup=False, ext=None):
         base = self._base_path if not project else self._project_path
+        base = base / "Saved" / "UI" / "Maps"
         region = self._zones[name]["region"]
         file = self._zones[name]["filename"]
         bck = "_backup" if backup else ""
@@ -132,7 +134,7 @@ class MapAnnotator:
             bpath = self._get_path(name, backup=True)
             shutil.copy(path, bpath)
 
-    def annotate_map(self, name, save=False):
+    def annotate_map(self, name, save=False, show=True):
         """Annotate the map of the zone `name`. Optionally save the modified asset file and its png preview
         
         Saves are made both in the TexTools folder for easy import and to the map project folder for repo update."""
@@ -167,7 +169,7 @@ class MapAnnotator:
 
         if save:
             self._save_map(complete_map, name)
-        if self._iscli:
+        if self._iscli and show:
             complete_map.show(title=name)
             return
         return complete_map
@@ -223,7 +225,7 @@ class MapAnnotator:
 
         Saves are made both in the TexTools folder for easy import and to the map project folder for repo update."""
         for zone in self._zones:
-            self.fix_map(zone, save=True)
+            self.fix_map(zone, save=True, show=False)
 
     def generate_thumbnail_table(self):
         """Generate html code for the collapsable preview tables used in the map repo's README.
@@ -276,6 +278,49 @@ class MapAnnotator:
             table += "\n</details>\n\n"
             document += table
         pyperclip.copy(document)
+
+    def blend_map(self, name, from_backup=True, save=False, show=True):
+        """Blend the base asset image (live, likely annotated or backup) with the relevant background.
+        
+        Saves are in the map project folder for repo update."""
+
+        maskpath_map = {"ARR": "arrhw", "HW": "arrhw", "SB": "sb", "SHB": "shb"}
+        maskbase_path = self._project_path / "Blended" / "masks"
+        mask_name = maskpath_map[self._zones[name]["expansion"]] + "_mask.png"
+        mask_path = maskbase_path / mask_name
+
+        map_layer = Image.open(self._get_path(name, backup=from_backup))
+        mask_layer = Image.open(mask_path)
+
+        if map_layer.size != mask_layer.size:
+            raise ValueError
+
+        np_map = np.array(map_layer)
+        np_mask = np.array(mask_layer)
+        np_blended = np.zeros(np_map.shape, dtype=np_map.dtype)
+        np_blended[:, :, :3] = (
+            np_map.astype(float)[:, :, :3] * np_mask[:, :, :3] / 255.0
+        )
+        np_blended[:, :, 3] = np_map[:, :, 3]
+        blended = Image.fromarray(np_blended)
+
+        if save:
+            self._save_blended_map(blended, name)
+        if self._iscli and show:
+            blended.show(title=name)
+            return
+        return blended
+
+    def _save_blended_map(self, img, name):
+        filepath = self._project_path / "Blended" / (name + ".png")
+        img.save(filepath, format="png")
+
+    def blend_all(self, from_backup=True):
+        """Blend and save all maps.
+
+        Saves are made in the map project folder for repo update."""
+        for zone in self._zones:
+            self.blend_map(zone, save=True, from_backup=from_backup, show=False)
 
 
 if __name__ == "__main__":

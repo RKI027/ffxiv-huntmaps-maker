@@ -1,6 +1,6 @@
 tool:
-    textools_path: C:\Users\HADES\Documents\TexTools\Saved\UI\Maps
-    project_path: C:\Users\HADES\Documents\Projects\ffxiv-huntmaps\Saved\UI\Maps
+    textools_path: C:\Users\HADES\Documents\TexTools
+    project_path: C:\Users\HADES\Documents\Projects\ffxiv-huntmaps
     imagemagick_path: C:\Program Files\ImageMagick-7.0.9-Q16\magick.EXE
     preview_url_template: https://raw.githubusercontent.com/RKI027/ffxiv-huntmaps/master/Saved/UI/Maps/{region}/{zone}/{file}_m.png
 
@@ -9,7 +9,7 @@ marker:
     inner_size_scale: 0.4
     shadow_offset: (3, 3)
     shadow_scale: 1.0
-    shadow_color: '#737373'
+    shadow_color: "#737373"
     shadow_iterations: 7
     shadow_direction: radial
 
@@ -24,7 +24,7 @@ legend:
     border_space: (5, 5)
     font_size: 30
     font: C:\WINDOWS\FONTS\CORBELI.TTF
-    shadow_color: '#444444'
+    shadow_color: "#444444"
     shadow_iterations: 7
 
 colors:
@@ -33,8 +33,8 @@ colors:
     A1: orange
     A2: yellow
     S: red
-    SS: '#ff0099'
-    SSs: '#ff99ff'
+    SS: "#ff0099"
+    SSs: "#ff99ff"
 
 expansions:
     ARR: A Realm Reborn
@@ -175,7 +175,7 @@ zones:
         legend:
             rows: 4
             position: (1200, 190)
-    The Churning Mists: 
+    The Churning Mists:
         expansion: HW
         landmine: false
         legend:
