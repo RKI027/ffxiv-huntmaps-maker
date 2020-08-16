@@ -129,10 +129,11 @@ class MapAnnotator:
             print("Call this method with warning=False to execute.")
             return
         self.check_files()
-        for name in self.zone_info:
+        for name in self._zones:
             path = self._get_path(name)
             bpath = self._get_path(name, backup=True)
             shutil.copy(path, bpath)
+        print("Backup complete.")
 
     def annotate_map(self, name, save=False, show=True):
         """Annotate the map of the zone `name`. Optionally save the modified asset file and its png preview
@@ -225,7 +226,7 @@ class MapAnnotator:
 
         Saves are made both in the TexTools folder for easy import and to the map project folder for repo update."""
         for zone in self._zones:
-            self.fix_map(zone, save=True, show=False)
+            self.annotate_map(zone, save=True, show=False)
 
     def generate_thumbnail_table(self):
         """Generate html code for the collapsable preview tables used in the map repo's README.
