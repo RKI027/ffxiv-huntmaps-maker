@@ -51,10 +51,11 @@ class MapAnnotator:
         base = self._base_path if not project else self._project_path
         base = base / "Saved" / "UI" / "Maps"
         region = self._zones[name]["region"]
+        zone = self._zones[name].get("zonename", name)
         file = self._zones[name]["filename"]
         bck = "_backup" if backup else ""
         ext = ext or "dds"
-        return (base / region / name / (file + "_m" + bck)).with_suffix("." + ext)
+        return (base / region / zone / (file + "_m" + bck)).with_suffix("." + ext)
 
     def _get_zone_marks(self, zone, rank_remap=False):
         marks = {
@@ -239,11 +240,11 @@ class MapAnnotator:
                 if info["expansion"] == expansion:
                     if info["region"] == "Norvrandt":
                         if len(expac_data["Norvrandt 1"]) < 3:
-                            expac_data["Norvrandt 1"].append((zone, info["filename"]))
+                            expac_data["Norvrandt 1"].append((info.get("zonename", zone), info["filename"]))
                         else:
-                            expac_data["Norvrandt 2"].append((zone, info["filename"]))
+                            expac_data["Norvrandt 2"].append((info.get("zonename", zone), info["filename"]))
                     else:
-                        expac_data[info["region"]].append((zone, info["filename"]))
+                        expac_data[info["region"]].append((info.get("zonename", zone), info["filename"]))
 
             for zones in expac_data.values():
                 zones.sort(key=itemgetter(0))
