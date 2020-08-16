@@ -11,11 +11,12 @@ import requests
 
 
 def yml_tuple_constructor(loader, node):
-    # from https://stackoverflow.com/a/48452275t
-    # this is to convert the string written as a tuple into a python tuple
-    # this little parse is really just for what I needed, feel free to change it!
+    """This is to convert the string written as a tuple into a python tuple
+    
+    from https://stackoverflow.com/a/48452275t"""
+
     def parse_tup_el(el):
-        # try to convert into int or float else keep the string
+        """try to convert into int or float else keep the string"""
         if el.isdigit():
             return int(el)
         try:
@@ -41,11 +42,17 @@ yaml.add_implicit_resolver("!tuple", pattern)
 
 
 class MarksHelper:
+    """Helper class to load the marks.json file.
+
+    Nothing fancy and only the load method is useful on a regular basis. Other methods
+    were used to put the data in a good shape."""
+
     def __init__(self):
         pass
 
     @staticmethod
     def dump_marks(marklist, filename):
+        """Dump the list of Mark namedtuples in json"""
         new_list = [t._asdict() for t in marklist]
         if filename == "str":
             return json.dumps(new_list)
@@ -54,6 +61,7 @@ class MarksHelper:
 
     @staticmethod
     def load_marks(filename):
+        """Load the json file and build the list of namedtuples"""
         with open(filename, "rt") as fp:
             marks = json.load(fp)
 
@@ -62,6 +70,10 @@ class MarksHelper:
 
     @staticmethod
     def sort_marks(filename):
+        """Load, sort the data and dump it back.
+        
+        Sort the marks by zone, rank, name
+        Sort the spawn points by x, y"""
         with open(filename, "rt") as fp:
             marks = json.load(fp)
 
@@ -73,12 +85,17 @@ class MarksHelper:
 
 
 class ZoneApi:
+    """Helper class to query xivapi.com and collect zone information"""
+
     def __init__(self, zones):
         self.base_url = "https://xivapi.com"
         self.zones = zones
         self.cachename = "data/zone_info"
 
     def _get_zone_url(self, name):
+        """query xivapi to find the url to access zone info.
+
+        There's a trick to Mor Dhona as the zone exists under multiple id"""
         resp = requests.get(f"{self.base_url}/search?indexes=PlaceName&string={name}")
         if resp.ok:
             results = resp.json()["Results"]
@@ -97,6 +114,7 @@ class ZoneApi:
             raise Exception(resp)
 
     def get_zone_info(self, name):
+        """Get the info about a zone"""
         zone_url = self._get_zone_url(name)
         resp = requests.get(f"{self.base_url}{zone_url}")
         if resp.ok:
@@ -106,12 +124,14 @@ class ZoneApi:
             raise Exception(resp)
 
     def get_zone_data(self, info):
+        """Build the data structure for the zone"""
         region = info["PlaceNameRegion"]["Name"]
         size_factor = info["SizeFactor"]
         filename = info["MapFilenameId"].replace("/", "")
         return {"region": region, "scale": size_factor, "filename": filename}
 
     def get_all_zone_info(self):
+        """Collect all information"""
         results = {}
         for zone in self.zones:
             info = self.get_zone_info(zone)
@@ -119,6 +139,7 @@ class ZoneApi:
         return results
 
     def save_zone_info(self, zones, as_json=False):
+        """Save the data, either as yaml (default) or json"""
         if as_json:
             with open(self.cachename + ".json", "wt") as fp:
                 json.dump(zones, fp)
@@ -127,6 +148,7 @@ class ZoneApi:
             yaml.safe_dump(zones, fp)
 
     def load_zone_info(self, zones=None):
+        """Load the data (yaml only)"""
         with open(self.cachename + ".yaml", "rt") as fp:
             info = yaml.load(fp, Loader=yaml.Loader)
         if zones:
@@ -137,9 +159,11 @@ class ZoneApi:
 
 
 class Position:
-    """Position class that represents a 2-tuple of coordinates and provide helpful functions to operate on those.
+    """Position class that represents a 2-tuple of coordinates and provide helpful
+    functions to operate on those.
 
-    Accessing 'other''s values is done through indexers in order to be compatible with coordinates passed as lists or tuples."""
+    Accessing 'other''s values is done through indexers in order to be compatible
+    with coordinates passed as lists or tuples."""
 
     def __init__(self, x, y):
         self.x = x
@@ -204,7 +228,8 @@ class Position:
 
 
 def compute_columns(n_items, n_rows):
-    """Compute the required number of columns given a number of items n_items to be displayed in a grid n_rows x n_cols"""
+    """Compute the required number of columns given a number of items
+    n_items to be displayed in a grid n_rows x n_cols"""
     if n_rows > n_items:
         return n_items, 1
     d = n_items // n_rows
@@ -223,6 +248,10 @@ def c2m(pos, scale=100):
 
 
 def drop_shadow(img, offset, shadow_color, iterations=5, scale=1, direction=None):
+    """Compute a drop shadow, configured by color, offset and iterations.
+
+    scale shouldn't be used as results aren't great.
+    direction='radial' will layer multiple shadows in all cardinal directions"""
     alpha = img.getchannel("A")
 
     base_shadow = Image.new("RGBA", img.size, color=shadow_color)
@@ -252,6 +281,8 @@ def drop_shadow(img, offset, shadow_color, iterations=5, scale=1, direction=None
 
 
 class Legend:
+    """Helper class to draw the legend on a map"""
+
     def __init__(self, config):
         self.inner_offset = Position(
             *config["legend"]["inner_offset"]
@@ -286,7 +317,8 @@ class Legend:
         rows, columns = compute_columns(n_items, rows)
         max_height = self._check_height(img, marks)
 
-        # Initialize the size of the legend. Height is already determined but width will be updated as we draw.
+        # Initialize the size of the legend. Height is already determined but width
+        # will be updated as we draw.
         size = Position(
             (columns - 1) * self.column_space,
             rows * max_height + (rows - 1) * self.line_space,
@@ -322,6 +354,7 @@ class Legend:
         return self._draw_border(img, position, size + 2 * self.inner_offset)
 
     def _check_height(self, img, marks):
+        """precompute the max height of the lines necessary to draw the marks' names"""
         draw = ImageDraw.Draw(img)
         max_height = 0
         for mark in marks.keys():
@@ -334,6 +367,7 @@ class Legend:
         return max_height
 
     def _draw_legend_item(self, img, position, mark_name, mark_rank):
+        """Draw one item of the legend"""
         draw = ImageDraw.Draw(img)
 
         rank_label = {
@@ -373,6 +407,7 @@ class Legend:
         return img, size
 
     def _draw_border(self, img, position, size):
+        """Draw the legend's border"""
         border = Image.new("RGBA", img.size, (0, 0, 0, 0))
         draw = ImageDraw.Draw(border)
 
