@@ -4,12 +4,12 @@ Library + CLI to annotate FFXIV in-game map assets with Elite Marks spawn positi
 
 ## Installation
 
-You need python >= 3.7
-Clone repo
-switch to any virtual/conda environment you'd like to use (or not)
-cd to directory
-pip install -r requirements.txt
-python annotate.py to get a list of commands
+- You need python >= 3.7
+- Clone repo
+- switch to any virtual/conda environment you'd like to use (or not)
+- cd to directory
+- `pip install -r requirements.txt`
+- `python annotate.py` to get a list of commands
 
 ## How to use
 
