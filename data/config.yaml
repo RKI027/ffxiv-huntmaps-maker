@@ -254,3 +254,39 @@ zones:
         legend:
             rows: 7
             position: (60, 1640)
+    Thavnair:
+        expansion: EW
+        landmine: unknown
+        legend:
+            rows: 7
+            position: (1600, 1550)
+    Garlemald:
+        expansion: EW
+        landmine: true
+        legend:
+            rows: 7
+            position: (100, 1200)
+    Labyrinthos:
+        expansion: EW
+        landmine: unknown
+        legend:
+            rows: 7
+            position: (1500, 1500)
+    Mare Lamentorum:
+        expansion: EW
+        landmine: false
+        legend:
+            rows: 7
+            position: (1600, 1600)
+    Ultima Thule:
+        expansion: EW
+        landmine: unknown
+        legend:
+            rows: 4
+            position: (1420, 1700)
+    Elpis:
+        expansion: EW
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
