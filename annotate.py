@@ -35,8 +35,12 @@ class MapAnnotator:
             a = yaml.load_all(fp, Loader=yaml.Loader)
             self._config = {k: v for i in a for k, v in i.items()}
 
-        self._base_path = pathlib.Path(self._config["tool"]["textools_path"])
-        self._project_path = pathlib.Path(self._config["tool"]["project_path"])
+        self._base_path = pathlib.Path(
+            self._config["tool"]["textools_path"]
+        ).expanduser()
+        self._project_path = pathlib.Path(
+            self._config["tool"]["project_path"]
+        ).expanduser()
         self._magickpath = self._config["tool"]["imagemagick_path"] or shutil.which(
             "magick"
         )

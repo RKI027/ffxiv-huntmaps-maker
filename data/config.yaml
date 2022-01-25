@@ -1,6 +1,6 @@
 tool:
-    textools_path: C:\Users\...\Documents\TexTools
-    project_path: C:\Users\...\Documents\Projects\ffxiv-huntmaps
+    textools_path: "~/Documents/TexTools"
+    project_path: "~/Documents/Projects/ffxiv-huntmaps"
     imagemagick_path: C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.EXE
     preview_url_template: https://raw.githubusercontent.com/RKI027/ffxiv-huntmaps/master/Saved/UI/Maps/{region}/{zone}/{file}_m.png
 
