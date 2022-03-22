@@ -62,7 +62,7 @@ class MarksHelper:
     @staticmethod
     def load_marks(filename):
         """Load the json file and build the list of namedtuples"""
-        with open(filename, "rt") as fp:
+        with open(filename, "rt", encoding="utf-8") as fp:
             marks = json.load(fp)
 
         Mark = namedtuple("Mark", marks[0])
@@ -141,7 +141,7 @@ class ZoneApi:
     def save_zone_info(self, zones, as_json=False):
         """Save the data, either as yaml (default) or json"""
         if as_json:
-            with open(self.cachename + ".json", "wt") as fp:
+            with open(self.cachename + ".json", "wt", encoding="utf-8") as fp:
                 json.dump(zones, fp)
                 return
         with open(self.cachename + ".yaml", "wt") as fp:
@@ -149,7 +149,7 @@ class ZoneApi:
 
     def load_zone_info(self, zones=None):
         """Load the data (yaml only)"""
-        with open(self.cachename + ".yaml", "rt") as fp:
+        with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
             info = yaml.load(fp, Loader=yaml.Loader)
         if zones:
             for zone in list(zones.keys()):
