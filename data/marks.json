@@ -794,7 +794,7 @@
         ]
     },
     {
-        "name": "the Garlok",
+        "name": "The Garlok",
         "rank": "S",
         "zone": "Eastern La Noscea",
         "spawns": [
@@ -1566,7 +1566,7 @@
         ]
     },
     {
-        "name": "Croque-mitaine",
+        "name": "Croque-Mitaine",
         "rank": "S",
         "zone": "Middle La Noscea",
         "spawns": [
@@ -1671,7 +1671,7 @@
         ]
     },
     {
-        "name": "Agrippa the Mighty",
+        "name": "Agrippa The Mighty",
         "rank": "S",
         "zone": "Mor Dhona",
         "spawns": [
@@ -2343,7 +2343,7 @@
         ]
     },
     {
-        "name": "the Scarecrow",
+        "name": "The Scarecrow",
         "rank": "B",
         "zone": "The Churning Mists",
         "spawns": [
@@ -2435,7 +2435,7 @@
         ]
     },
     {
-        "name": "Gnath cometdrone",
+        "name": "Gnath Cometdrone",
         "rank": "B",
         "zone": "The Dravanian Forelands",
         "spawns": [
@@ -2576,7 +2576,7 @@
         ]
     },
     {
-        "name": "the Pale Rider",
+        "name": "The Pale Rider",
         "rank": "S",
         "zone": "The Dravanian Hinterlands",
         "spawns": [
