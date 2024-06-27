@@ -42,6 +42,7 @@ expansions:
     SB: Stormblood
     SHB: Shadowbringers
     EW: Endwalker
+    DT: Dawntrail
 
 zones:
     Middle La Noscea:
@@ -286,6 +287,42 @@ zones:
             position: (1420, 1700)
     Elpis:
         expansion: EW
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
+    Urqopacha:
+        expansion: DT
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
+    Kozama'uka:
+        expansion: DT
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
+    Yak T'el:
+        expansion: DT
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
+    Shaaloani:
+        expansion: DT
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
+    Heritage Found:
+        expansion: DT
+        landmine: false
+        legend:
+            rows: 4
+            position: (1450, 1580)
+    Living Memory:
+        expansion: DT
         landmine: false
         legend:
             rows: 4

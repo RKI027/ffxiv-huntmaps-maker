@@ -37,6 +37,10 @@ annotator = MapAnnotator()
 
 From there, you can call the same methods. `MapAnnotator.annotate_map` will instead preview the output directly in the notebook rather than opening `Paint`.
 
+## Blending
+
+See [this](https://github.com/RKI027/ffxiv-huntmaps/blob/master/Blended/README.md) for information about preparation for blending.
+
 ## Reference
 
 Information on commands, their function and use is available through the tool.

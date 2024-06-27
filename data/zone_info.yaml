@@ -164,3 +164,27 @@ Elpis:
   filename: n5f100
   region: The World Unsundered
   scale: 100
+Urqopacha:
+  filename: y6f100
+  region: Yok Tural
+  scale: 100
+Kozama'uka:
+  filename: y6f200
+  region: Yok Tural
+  scale: 100
+Yak T'el:
+  filename: y6f300
+  region: Yok Tural
+  scale: 100
+Shaaloani:
+  filename: x6f100
+  region: Xak Tural
+  scale: 100
+Heritage Found:
+  filename: x6f200
+  region: Xak Tural
+  scale: 100
+Living Memory:
+  filename: x6f300
+  region: Unlost World
+  scale: 100

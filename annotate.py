@@ -21,12 +21,12 @@ from helpers import ZoneApi, MarksHelper, Position, drop_shadow, m2c, Legend
 
 class MapAnnotator:
     """Library + CLI to annotate FFXIV in-game map assets with Elite Marks spawn positions.
-    
+
     To perform this, it relies on 3 configuration files:
     - data/zone_info.yaml: file generated from xivapi mapping a zone name to its region, map filename, scale factor
     - data/marks.json: static data file mapping a mark to its rank, zone and spawn positions
     - data/config.yaml: configuration for paths, marker style, legend style and position
-    
+
     In addition to the python requirements, it requires ImageMagick to be installed (path can be in
     user $PATH or provided in configuration)"""
 
@@ -122,7 +122,7 @@ class MapAnnotator:
         The annotation process replaces the original export, so calling this function after some maps
         have been annotated will result in already annotated source files and the original assets will
         need to be re-exported with TexTools and backed-up again.
-        
+
         Call this method with warning=False to execute."""
         if warning:
             print(
@@ -142,8 +142,9 @@ class MapAnnotator:
 
     def annotate_map(self, name, save=False, show=True):
         """Annotate the map of the zone `name`. Optionally save the modified asset file and its png preview
-        
-        Saves are made both in the TexTools folder for easy import and to the map project folder for repo update."""
+
+        Saves are made both in the TexTools folder for easy import and to the map project folder for repo update.
+        """
         map_layer = Image.open(self._get_path(name, backup=True))
 
         marker_layer = Image.new("RGBA", map_layer.size, color=(0, 0, 0, 0))
@@ -229,7 +230,8 @@ class MapAnnotator:
     def annotate_all(self):
         """Annotate and save all maps.
 
-        Saves are made both in the TexTools folder for easy import and to the map project folder for repo update."""
+        Saves are made both in the TexTools folder for easy import and to the map project folder for repo update.
+        """
         for zone in self._zones:
             self.annotate_map(zone, save=True, show=False)
 
@@ -293,7 +295,7 @@ class MapAnnotator:
 
     def blend_map(self, name, from_backup=True, save=False, show=True):
         """Blend the base asset image (live, likely annotated or backup) with the relevant background.
-        
+
         Saves are in the map project folder for repo update."""
 
         maskpath_map = {
@@ -301,7 +303,8 @@ class MapAnnotator:
             "HW": "arrhw",
             "SB": "sb",
             "SHB": "shb",
-            "EW": "ew",
+            "EW": "shb",  # the parchment texture seems to be the same since shb (at least) and my shb cleanup is better than the ew's one
+            "DT": "shb",
         }
         maskbase_path = self._project_path / "Blended" / "masks"
         mask_name = maskpath_map[self._zones[name]["expansion"]] + "_mask.png"
