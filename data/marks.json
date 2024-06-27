@@ -3669,7 +3669,7 @@
         "spawns": [
             [17.0, 9.6],
             [29.9, 8.2],
-            [34.1, 14.2],
+            [34.2, 13.5],
             [32.3, 25.9]
         ]
     },
@@ -3693,7 +3693,7 @@
         "spawns": [
             [17.0, 9.6],
             [29.9, 8.2],
-            [34.1, 14.2],
+            [34.2, 13.5],
             [32.3, 25.9],
             [5.9, 33.6],
             [10.7, 19.3],
@@ -3710,7 +3710,7 @@
         "spawns": [
             [17.0, 9.6],
             [29.9, 8.2],
-            [34.1, 14.2],
+            [34.2, 13.5],
             [32.3, 25.9],
             [5.9, 33.6],
             [10.7, 19.3],
@@ -3727,7 +3727,7 @@
         "spawns": [
             [17.0, 9.6],
             [29.9, 8.2],
-            [34.1, 14.2],
+            [34.2, 13.5],
             [32.3, 25.9],
             [5.9, 33.6],
             [10.7, 19.3],
@@ -4146,5 +4146,257 @@
             [29.0, 7.3],
             [37.7, 13.4]
         ]
+    },
+    {
+        "name": "Mad Maguey",
+        "rank": "B",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "Chupacabra",
+        "rank": "B",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "Nehuciho",
+        "rank": "A",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "Queen Hawk",
+        "rank": "A",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "S",
+        "rank": "S",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "The Slammer",
+        "rank": "B",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "Go'ozoabek'be",
+        "rank": "B",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "The Raintriller",
+        "rank": "A",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "Pkuucha",
+        "rank": "A",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "S",
+        "rank": "S",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "Leafscourge Hadoll Ja",
+        "rank": "B",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Xty'iinbek",
+        "rank": "B",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Starcrier",
+        "rank": "A",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Rrax Yity'a",
+        "rank": "A",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Neyoozoteel",
+        "rank": "S",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Nopalitender Fabuloso",
+        "rank": "B",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Uktena",
+        "rank": "B",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Yehehetoaua'pyo",
+        "rank": "A",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Keheniheyamewi",
+        "rank": "A",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Sansheya",
+        "rank": "S",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Jewel Bearer",
+        "rank": "B",
+        "zone": "Living Memory",
+        "spawns": []
+    },
+    {
+        "name": "13th Child",
+        "rank": "B",
+        "zone": "Living Memory",
+        "spawns": []
+    },
+    {
+        "name": "Sally the Sweeper",
+        "rank": "A",
+        "zone": "Living Memory",
+        "spawns": []
+    },
+    {
+        "name": "Cat's Eye",
+        "rank": "A",
+        "zone": "Living Memory",
+        "spawns": []
+    },
+    {
+        "name": "The Forecaster",
+        "rank": "S",
+        "zone": "Living Memory",
+        "spawns": []
+    },
+    {
+        "name": "Gallowsbeak",
+        "rank": "B",
+        "zone": "Heritage Found",
+        "spawns": []
+    },
+    {
+        "name": "Gargant",
+        "rank": "B",
+        "zone": "Heritage Found",
+        "spawns": []
+    },
+    {
+        "name": "Heshuala",
+        "rank": "A",
+        "zone": "Heritage Found",
+        "spawns": []
+    },
+    {
+        "name": "Urna Variabilis",
+        "rank": "A",
+        "zone": "Heritage Found",
+        "spawns": []
+    },
+    {
+        "name": "Atticus the Primogenitor",
+        "rank": "S",
+        "zone": "Heritage Found",
+        "spawns": []
+    },
+    {
+        "name": "Arch Aethereater",
+        "rank": "SS",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "Crystal Incarnation",
+        "rank": "SSs",
+        "zone": "Urqopacha",
+        "spawns": []
+    },
+    {
+        "name": "Arch Aethereater",
+        "rank": "SS",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "Crystal Incarnation",
+        "rank": "SSs",
+        "zone": "Kozama'uka",
+        "spawns": []
+    },
+    {
+        "name": "Arch Aethereater",
+        "rank": "SS",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Crystal Incarnation",
+        "rank": "SSs",
+        "zone": "Yak T'el",
+        "spawns": []
+    },
+    {
+        "name": "Arch Aethereater",
+        "rank": "SS",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Crystal Incarnation",
+        "rank": "SSs",
+        "zone": "Shaaloani",
+        "spawns": []
+    },
+    {
+        "name": "Arch Aethereater",
+        "rank": "SS",
+        "zone": "Ultima Thule",
+        "spawns": []
+    },
+    {
+        "name": "Crystal Incarnation",
+        "rank": "SSs",
+        "zone": "Ultima Thule",
+        "spawns": []
+    },
+    {
+        "name": "Arch Aethereater",
+        "rank": "SS",
+        "zone": "Heritage Found",
+        "spawns": []
+    },
+    {
+        "name": "Crystal Incarnation",
+        "rank": "SSs",
+        "zone": "Heritage Found",
+        "spawns": []
     }
 ]
