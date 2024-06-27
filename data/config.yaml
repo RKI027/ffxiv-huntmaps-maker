@@ -295,35 +295,35 @@ zones:
         expansion: DT
         landmine: false
         legend:
-            rows: 4
-            position: (1450, 1580)
+            rows: 3
+            position: (1050, 1890)
     Kozama'uka:
         expansion: DT
         landmine: false
         legend:
-            rows: 4
-            position: (1450, 1580)
+            rows: 3
+            position: (1050, 1895)
     Yak T'el:
         expansion: DT
         landmine: false
         legend:
-            rows: 4
-            position: (1450, 1580)
+            rows: 3
+            position: (850, 1890)
     Shaaloani:
         expansion: DT
         landmine: false
         legend:
-            rows: 4
-            position: (1450, 1580)
+            rows: 3
+            position: (950, 15)
     Heritage Found:
         expansion: DT
         landmine: false
         legend:
             rows: 4
-            position: (1450, 1580)
+            position: (900, 1830)
     Living Memory:
         expansion: DT
         landmine: false
         legend:
-            rows: 4
-            position: (1450, 1580)
+            rows: 2
+            position: (850, 20)
