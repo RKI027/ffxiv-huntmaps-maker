@@ -4151,25 +4151,52 @@
         "name": "Mad Maguey",
         "rank": "B",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [10.9, 8.7],
+            [18.9, 14.0],
+            [21.5, 16.8],
+            [28.8, 9.5],
+            [33.8, 19.4]
+        ]
     },
     {
         "name": "Chupacabra",
         "rank": "B",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [7.4, 25.8],
+            [15.9, 24.0],
+            [21.7, 20.8],
+            [28.1, 22.7]
+        ]
     },
     {
         "name": "Nehuciho",
         "rank": "A",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [10.9, 8.7],
+            [18.9, 14.0],
+            [28.8, 9.5],
+            [7.4, 25.8],
+            [15.9, 24.0],
+            [21.7, 20.8],
+            [28.1, 22.7]
+        ]
     },
     {
         "name": "Queen Hawk",
         "rank": "A",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [10.9, 8.7],
+            [18.9, 14.0],
+            [28.8, 9.5],
+            [7.4, 25.8],
+            [15.9, 24.0],
+            [21.7, 20.8],
+            [28.1, 22.7]
+        ]
     },
     {
         "name": "S",
@@ -4181,25 +4208,54 @@
         "name": "The Slammer",
         "rank": "B",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [9.4, 8.0],
+            [6.6, 12.1],
+            [16.2, 17.4],
+            [36.8, 17.5]
+        ]
     },
     {
         "name": "Go'ozoabek'be",
         "rank": "B",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [5.3, 28.8],
+            [15.5, 23.7],
+            [20.7, 28.6],
+            [24.0, 36.6],
+            [34, 36.6]
+        ]
     },
     {
         "name": "The Raintriller",
         "rank": "A",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [5.3, 28.8],
+            [15.5, 23.7],
+            [20.7, 28.6],
+            [24.0, 36.6],
+            [9.4, 8.0],
+            [6.6, 12.1],
+            [16.2, 17.4],
+            [36.8, 17.5]
+        ]
     },
     {
         "name": "Pkuucha",
         "rank": "A",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [5.3, 28.8],
+            [15.5, 23.7],
+            [20.7, 28.6],
+            [24.0, 36.6],
+            [9.4, 8.0],
+            [6.6, 12.1],
+            [16.2, 17.4],
+            [36.8, 17.5]
+        ]
     },
     {
         "name": "S",
@@ -4223,19 +4279,43 @@
         "name": "Starcrier",
         "rank": "A",
         "zone": "Yak T'el",
-        "spawns": []
+        "spawns": [
+            [8.5, 19.4],
+            [23.4, 14.2],
+            [26.4, 9.6],
+            [33.2, 16.2],
+            [21.8, 28.4],
+            [24.7, 33.1],
+            [21.4, 36.4]
+        ]
     },
     {
         "name": "Rrax Yity'a",
         "rank": "A",
         "zone": "Yak T'el",
-        "spawns": []
+        "spawns": [
+            [8.5, 19.4],
+            [23.4, 14.2],
+            [26.4, 9.6],
+            [33.2, 16.2],
+            [21.8, 28.4],
+            [24.7, 33.1],
+            [21.4, 36.4]
+        ]
     },
     {
         "name": "Neyoozoteel",
         "rank": "S",
         "zone": "Yak T'el",
-        "spawns": []
+        "spawns": [
+            [8.5, 19.4],
+            [23.4, 14.2],
+            [26.4, 9.6],
+            [33.2, 16.2],
+            [21.8, 28.4],
+            [24.7, 33.1],
+            [21.4, 36.4]
+        ]
     },
     {
         "name": "Nopalitender Fabuloso",
@@ -4253,19 +4333,46 @@
         "name": "Yehehetoaua'pyo",
         "rank": "A",
         "zone": "Shaaloani",
-        "spawns": []
+        "spawns": [
+            [9.0, 16.6],
+            [16.1, 8.3],
+            [34.3, 6.5],
+            [23.1, 18.9],
+            [25.2, 23.3],
+            [31.4, 23.3],
+            [22.1, 28.1],
+            [21.8, 33.4]
+        ]
     },
     {
         "name": "Keheniheyamewi",
         "rank": "A",
         "zone": "Shaaloani",
-        "spawns": []
+        "spawns": [
+            [9.0, 16.6],
+            [16.1, 8.3],
+            [34.3, 6.5],
+            [23.1, 18.9],
+            [25.2, 23.3],
+            [31.4, 23.3],
+            [22.1, 28.1],
+            [21.8, 33.4]
+        ]
     },
     {
         "name": "Sansheya",
         "rank": "S",
         "zone": "Shaaloani",
-        "spawns": []
+        "spawns": [
+            [9.0, 16.6],
+            [16.1, 8.3],
+            [34.3, 6.5],
+            [23.1, 18.9],
+            [25.2, 23.3],
+            [31.4, 23.3],
+            [22.1, 28.1],
+            [21.8, 33.4]
+        ]
     },
     {
         "name": "Jewel Bearer",
@@ -4283,19 +4390,40 @@
         "name": "Sally the Sweeper",
         "rank": "A",
         "zone": "Living Memory",
-        "spawns": []
+        "spawns": [
+            [5.2, 12.8],
+            [19.0, 20.2],
+            [4.3, 28.9],
+            [12.9, 27.7],
+            [12.5, 37.8],
+            [26.9, 31.3]
+        ]
     },
     {
         "name": "Cat's Eye",
         "rank": "A",
         "zone": "Living Memory",
-        "spawns": []
+        "spawns": [
+            [5.2, 12.8],
+            [19.0, 20.2],
+            [4.3, 28.9],
+            [12.9, 27.7],
+            [12.5, 37.8],
+            [26.9, 31.3]
+        ]
     },
     {
         "name": "The Forecaster",
         "rank": "S",
         "zone": "Living Memory",
-        "spawns": []
+        "spawns": [
+            [5.2, 12.8],
+            [19.0, 20.2],
+            [4.3, 28.9],
+            [12.9, 27.7],
+            [12.5, 37.8],
+            [26.9, 31.3]
+        ]
     },
     {
         "name": "Gallowsbeak",
@@ -4313,19 +4441,43 @@
         "name": "Heshuala",
         "rank": "A",
         "zone": "Heritage Found",
-        "spawns": []
+        "spawns": [
+            [8.2, 33.4],
+            [14.6, 26.0],
+            [24.2, 19.7],
+            [27.2, 13.8],
+            [29.6, 19.5],
+            [29.6, 29.9],
+            [27.5, 33.7]
+        ]
     },
     {
         "name": "Urna Variabilis",
         "rank": "A",
         "zone": "Heritage Found",
-        "spawns": []
+        "spawns": [
+            [8.2, 33.4],
+            [14.6, 26.0],
+            [24.2, 19.7],
+            [27.2, 13.8],
+            [29.6, 19.5],
+            [29.6, 29.9],
+            [27.5, 33.7]
+        ]
     },
     {
         "name": "Atticus the Primogenitor",
         "rank": "S",
         "zone": "Heritage Found",
-        "spawns": []
+        "spawns": [
+            [8.2, 33.4],
+            [14.6, 26.0],
+            [24.2, 19.7],
+            [27.2, 13.8],
+            [29.6, 19.5],
+            [29.6, 29.9],
+            [27.5, 33.7]
+        ]
     },
     {
         "name": "Arch Aethereater",
@@ -4355,48 +4507,76 @@
         "name": "Arch Aethereater",
         "rank": "SS",
         "zone": "Yak T'el",
-        "spawns": []
+        "spawns": [
+            [29.3, 18.8]
+        ]
     },
     {
         "name": "Crystal Incarnation",
         "rank": "SSs",
         "zone": "Yak T'el",
-        "spawns": []
+        "spawns": [
+            [35.3, 23.0],
+            [17.4, 14.2],
+            [27.8, 24.5],
+            [12.6, 35.8]
+        ]
     },
     {
         "name": "Arch Aethereater",
         "rank": "SS",
         "zone": "Shaaloani",
-        "spawns": []
+        "spawns": [
+            [13.6, 13.6]
+        ]
     },
     {
         "name": "Crystal Incarnation",
         "rank": "SSs",
         "zone": "Shaaloani",
-        "spawns": []
+        "spawns": [
+            [11.0, 8.1],
+            [23.7, 14.3],
+            [15.0, 31.0],
+            [33.9, 31.3]
+        ]
     },
     {
         "name": "Arch Aethereater",
         "rank": "SS",
-        "zone": "Ultima Thule",
-        "spawns": []
+        "zone": "Living Memory",
+        "spawns": [
+            [34.4, 26.0]
+        ]
     },
     {
         "name": "Crystal Incarnation",
         "rank": "SSs",
-        "zone": "Ultima Thule",
-        "spawns": []
+        "zone": "Living Memory",
+        "spawns": [
+            [28.6, 36.3],
+            [19.8, 30.8],
+            [11.5, 18.0],
+            [27.2, 7.1]
+        ]
     },
     {
         "name": "Arch Aethereater",
         "rank": "SS",
         "zone": "Heritage Found",
-        "spawns": []
+        "spawns": [
+            [17.6, 20.0]
+        ]
     },
     {
         "name": "Crystal Incarnation",
         "rank": "SSs",
         "zone": "Heritage Found",
-        "spawns": []
+        "spawns": [
+            [14.1, 17.9],
+            [15.1, 34.6],
+            [32.0, 23.0],
+            [30.2, 9.6]
+        ]
     }
 ]
