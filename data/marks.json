@@ -4202,7 +4202,15 @@
         "name": "Kirlirger the Abhorrent",
         "rank": "S",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [7.4, 25.5],
+            [11.4, 9.1],
+            [15.7, 24.1],
+            [18.8, 14.0],
+            [21.6, 20.4],
+            [28.7, 9.3],
+            [28.1, 22.4]
+        ]
     },
     {
         "name": "The Slammer",
@@ -4261,7 +4269,16 @@
         "name": "Ihnuxokiy",
         "rank": "S",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [5.2, 28.7],
+            [6.6, 11.9],
+            [9.2, 7.9],
+            [16.4, 17.2],
+            [15.7, 23.4],
+            [20.3, 28.4],
+            [24.0, 36.6],
+            [36.5, 17.2]
+        ]
     },
     {
         "name": "Leafscourge Hadoll Ja",
@@ -4527,25 +4544,39 @@
         "name": "Arch Aethereater",
         "rank": "SS",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [26.0, 27.9]
+        ]
     },
     {
         "name": "Crystal Incarnation",
         "rank": "SSs",
         "zone": "Urqopacha",
-        "spawns": []
+        "spawns": [
+            [15.6, 28.5],
+            [18.3, 17.9],
+            [25.7, 13.9],
+            [34.6, 28.2]
+        ]
     },
     {
         "name": "Arch Aethereater",
         "rank": "SS",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [13.8, 14.8]
+        ]
     },
     {
         "name": "Crystal Incarnation",
         "rank": "SSs",
         "zone": "Kozama'uka",
-        "spawns": []
+        "spawns": [
+            [15.8, 32.7],
+            [16.7, 7.5],
+            [29.6, 24.6],
+            [33.1, 8.2]
+        ]
     },
     {
         "name": "Arch Aethereater",
