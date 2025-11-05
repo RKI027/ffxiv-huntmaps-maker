@@ -326,9 +326,16 @@ class Legend:
         self.space = config["legend"][
             "border_space"
         ]  # spacing between the two rectangles forming the border
-        self.font = ImageFont.truetype(
-            config["legend"]["font"], config["legend"]["font_size"]
-        )
+
+        # Validate font file exists
+        font_path = config["legend"]["font"]
+        if not Path(font_path).exists():
+            raise FileNotFoundError(
+                f"Font file not found: {font_path}. "
+                f"Please ensure the font file exists or update the path in config.yaml"
+            )
+
+        self.font = ImageFont.truetype(font_path, config["legend"]["font_size"])
         self.shadow_color = config["legend"]["shadow_color"]
         self.shadow_iterations = config["legend"]["shadow_iterations"]
         self.colors = config["colors"]

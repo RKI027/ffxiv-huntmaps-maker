@@ -113,10 +113,10 @@ These tests document expected behavior but are not currently executable without 
    - ~~Using `yaml.Loader` instead of `yaml.SafeLoader`~~
    - ~~Security risk with untrusted YAML files~~
 
-8. **Missing file existence checks**
-   - Image.open() calls without checking file exists first
-   - No validation of ImageMagick path
-   - No validation of font file path
+8. ~~**Missing file existence checks**~~
+   - ~~Image.open() calls without checking file exists first~~
+   - ~~No validation of ImageMagick path~~
+   - ~~No validation of font file path~~
 
 ---
 

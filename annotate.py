@@ -45,6 +45,16 @@ class MapAnnotator:
             "magick"
         )
 
+        # Validate ImageMagick path
+        if not self._magickpath:
+            raise FileNotFoundError(
+                "ImageMagick not found. Please install ImageMagick or specify the path in config.yaml"
+            )
+        if not os.path.exists(self._magickpath):
+            raise FileNotFoundError(
+                f"ImageMagick path does not exist: {self._magickpath}"
+            )
+
         zones = self._config["zones"]
         ZoneApi(zones.keys()).load_zone_info(zones)
         self._zones = zones
@@ -145,7 +155,13 @@ class MapAnnotator:
 
         Saves are made both in the TexTools folder for easy import and to the map project folder for repo update.
         """
-        map_layer = Image.open(self._get_path(name, backup=True))
+        map_path = self._get_path(name, backup=True)
+        if not os.path.exists(map_path):
+            raise FileNotFoundError(
+                f"Map file not found for zone '{name}': {map_path}. "
+                f"Please ensure backup files exist by running backup_files() first."
+            )
+        map_layer = Image.open(map_path)
 
         marker_layer = Image.new("RGBA", map_layer.size, color=(0, 0, 0, 0))
 
@@ -318,7 +334,19 @@ class MapAnnotator:
         mask_name = maskpath_map[self._zones[name]["expansion"]] + "_mask.png"
         mask_path = maskbase_path / mask_name
 
-        map_layer = Image.open(self._get_path(name, backup=from_backup))
+        map_file_path = self._get_path(name, backup=from_backup)
+        if not os.path.exists(map_file_path):
+            raise FileNotFoundError(
+                f"Map file not found for zone '{name}': {map_file_path}"
+            )
+
+        if not os.path.exists(mask_path):
+            raise FileNotFoundError(
+                f"Mask file not found: {mask_path}. "
+                f"Expected mask for expansion '{self._zones[name]['expansion']}'."
+            )
+
+        map_layer = Image.open(map_file_path)
         mask_layer = Image.open(mask_path)
 
         if map_layer.size != mask_layer.size:
