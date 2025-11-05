@@ -105,9 +105,9 @@ These tests document expected behavior but are not currently executable without 
 
 ### 🟡 Medium Priority Issues
 
-6. **No subprocess error checking** (annotate.py:221)
-   - `subprocess.run()` doesn't check return code
-   - ImageMagick failures may go unnoticed
+6. ~~**No subprocess error checking** (annotate.py:221)~~
+   - ~~`subprocess.run()` doesn't check return code~~
+   - ~~ImageMagick failures may go unnoticed~~
 
 7. **Unsafe YAML Loading** (annotate.py:35, helpers.py:153)
    - Using `yaml.Loader` instead of `yaml.SafeLoader`

@@ -218,7 +218,15 @@ class MapAnnotator:
         dst = src.with_suffix(".dds")
         img.save(src, format="bmp")
         cmd = f'{self._magickpath} convert -define dds:compression=dxt1 -define dds:mipmaps=0 "{src}" "{dst}"'
-        subprocess.run(cmd, capture_output=True)
+        try:
+            subprocess.run(cmd, capture_output=True, check=True, shell=True)
+        except subprocess.CalledProcessError as e:
+            raise RuntimeError(
+                f"ImageMagick conversion failed for '{name}'. "
+                f"Command: {cmd}\n"
+                f"Return code: {e.returncode}\n"
+                f"stderr: {e.stderr.decode() if e.stderr else 'N/A'}"
+            ) from e
         src.unlink()
         pdst = self._get_path(name, ext="dds", project=True)
         os.makedirs(os.path.dirname(pdst), exist_ok=True)
