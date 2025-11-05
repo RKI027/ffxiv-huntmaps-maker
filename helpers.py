@@ -1,6 +1,7 @@
 from collections import namedtuple
 from copy import deepcopy
 import json
+from pathlib import Path
 import yaml
 from math import pi, cos, sin
 from operator import itemgetter
@@ -80,7 +81,11 @@ class MarksHelper:
         marks.sort(key=itemgetter("zone", "rank", "name"))
         for mark in marks:
             mark["spawns"] = sorted(mark["spawns"], key=itemgetter(0, 1))
-        with open("new_" + filename, "wt", encoding="utf-8") as fp:
+
+        # Create output path in same directory with "new_" prefix
+        filepath = Path(filename)
+        output_path = filepath.parent / ("new_" + filepath.name)
+        with open(output_path, "wt", encoding="utf-8") as fp:
             json.dump(marks, fp)
 
 

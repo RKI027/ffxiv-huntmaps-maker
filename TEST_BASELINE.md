@@ -77,7 +77,7 @@ These tests document expected behavior but are not currently executable without 
 
 ---
 
-#### ❌ Failing Tests (6 tests)
+#### ❌ Failing Tests (5 tests)
 
 These failures document **known issues** that need to be fixed:
 
@@ -110,22 +110,7 @@ These failures document **known issues** that need to be fixed:
 
 ---
 
-### 3. **MarksHelper.sort_marks Encoding Issue** (1 failure)
-- `test_marks_sort_with_unicode`
-
-**Issue:** sort_marks() doesn't specify encoding when opening files
-
-**Location:** helpers.py:77, 83
-
-**Error:** `FileNotFoundError` with path issues (also encoding not specified)
-
-**Current behavior:** Opens files without `encoding="utf-8"` parameter
-
-**Expected fix:** Add `encoding="utf-8"` to both file open calls
-
----
-
-### 4. **MapAnnotator Init Test** (1 failure)
+### 3. **MapAnnotator Init Test** (1 failure)
 - `test_init_requires_config_file`
 
 **Issue:** Test expects FileNotFoundError but config file exists
@@ -138,10 +123,10 @@ These failures document **known issues** that need to be fixed:
 
 ### 🔴 Critical Issues
 
-1. **Inconsistent UTF-8 Encoding** (helpers.py:59, 77, 83, 147)
-   - Files opened without explicit encoding specification
-   - Will fail on systems with non-UTF-8 default encoding
-   - Affects: sort_marks(), save_zone_info()
+1. ~~Inconsistent UTF-8 Encoding (helpers.py:59, 77, 83, 147)~~
+   - ~~Files opened without explicit encoding specification~~
+   - ~~Will fail on systems with non-UTF-8 default encoding~~
+   - ~~Affects: sort_marks(), save_zone_info()~~
 
 2. **Raising Strings Instead of Exceptions** (helpers.py:179, 191, 206)
    - Position class raises strings: `raise "message"`
@@ -181,7 +166,7 @@ These failures document **known issues** that need to be fixed:
 
 See `README.md` for test execution instructions.
 
-1. Fix UTF-8 encoding issues (add `encoding="utf-8"` to all file opens)
+1. ~~Fix UTF-8 encoding issues (add `encoding="utf-8"` to all file opens)~~
 2. Fix Position class exception raising (change string raises to TypeError)
 3. Fix deprecated textsize() calls (migrate to textbbox())
 4. Add proper error messages to all exceptions
