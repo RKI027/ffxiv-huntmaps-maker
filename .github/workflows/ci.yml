@@ -55,19 +55,9 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Check if tests exist
-        id: check_tests
-        shell: bash
-        run: |
-          if [ -d "tests" ] || ls test_*.py 2>/dev/null | grep -q .; then
-            echo "tests_exist=true" >> $GITHUB_OUTPUT
-          else
-            echo "tests_exist=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Run tests
-        if: steps.check_tests.outputs.tests_exist == 'true'
-        run: uv run pytest
+      # Uncomment when tests are added
+      # - name: Run tests
+      #   run: uv run pytest
 
       - name: Verify package can be imported
         run: |
