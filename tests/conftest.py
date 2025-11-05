@@ -110,6 +110,19 @@ def sample_zone_info_file(temp_dir, sample_zone_info):
 @pytest.fixture
 def sample_config():
     """Sample config data for testing."""
+    import platform
+    import os
+
+    # Choose font based on platform
+    if platform.system() == "Windows":
+        font_path = r"C:\Windows\Fonts\arial.ttf"
+    else:
+        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+
+    # Skip if font doesn't exist
+    if not os.path.exists(font_path):
+        pytest.skip(f"Font file not found: {font_path}")
+
     return {
         "tool": {
             "textools_path": "~/Documents/TexTools",
@@ -135,7 +148,7 @@ def sample_config():
             "font_stroke": 1,
             "border_space": [5, 5],
             "font_size": 30,
-            "font": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "font": font_path,
             "shadow_color": "#444444",
             "shadow_iterations": 7
         },

@@ -1,4 +1,5 @@
 """Tests for error handling scenarios."""
+import os
 import pytest
 import responses
 from helpers import Position, ZoneApi
@@ -195,6 +196,30 @@ class TestFileOperationErrors:
 
     def test_dump_marks_to_readonly_location(self, sample_marks_file):
         """Test dumping marks to read-only location."""
+        import platform
+
+        # Platform-specific handling
+        if platform.system() == "Windows":
+            # Check if running as Administrator on Windows
+            import ctypes
+            try:
+                is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+            except:
+                is_admin = False
+
+            if is_admin:
+                pytest.skip("Running as Administrator, cannot test permission errors")
+
+            # Use a Windows system directory that requires admin rights
+            readonly_path = r"C:\Windows\System32\readonly_test.json"
+        else:
+            # Unix-like systems: check if running as root
+            if os.geteuid() == 0:
+                pytest.skip("Running as root, cannot test permission errors")
+
+            # Use /root directory which is not writable by regular users
+            readonly_path = "/root/readonly.json"
+
         from helpers import MarksHelper
 
         Mark, marks = MarksHelper.load_marks(str(sample_marks_file))
@@ -202,7 +227,7 @@ class TestFileOperationErrors:
         # TODO: Should handle permission errors gracefully
         # This test may not work on all systems
         with pytest.raises((PermissionError, OSError)):
-            MarksHelper.dump_marks(marks, "/root/readonly.json")
+            MarksHelper.dump_marks(marks, readonly_path)
 
 
 class TestValueErrors:

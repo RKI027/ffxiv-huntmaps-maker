@@ -504,13 +504,6 @@ class TestLegend:
 
     def test_legend_draw(self, sample_config):
         """Test drawing a legend."""
-        # TODO: This test requires a valid font file path
-        # Skip if font doesn't exist
-        import os
-        font_path = sample_config["legend"]["font"]
-        if not os.path.exists(font_path):
-            pytest.skip(f"Font file not found: {font_path}")
-
         legend = Legend(sample_config)
         marks = {
             "Test Mark A": "A1",

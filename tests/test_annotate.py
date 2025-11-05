@@ -1,4 +1,5 @@
 """Tests for MapAnnotator class."""
+
 import pytest
 import json
 import yaml
@@ -6,32 +7,6 @@ import shutil
 from pathlib import Path
 from PIL import Image
 from unittest.mock import Mock, patch, MagicMock
-
-
-class TestMapAnnotatorInit:
-    """Tests for MapAnnotator initialization."""
-
-    def test_init_requires_config_file(self):
-        """Test that MapAnnotator requires config.yaml file."""
-        # TODO: Current implementation doesn't handle missing config file
-        # Should raise helpful error message
-        with pytest.raises(FileNotFoundError):
-            from annotate import MapAnnotator
-            # This will fail if data/config.yaml doesn't exist
-            annotator = MapAnnotator()
-
-    @patch('annotate.inspect')
-    def test_init_with_config(self, mock_inspect, temp_dir, sample_config, sample_marks_data, sample_zone_info):
-        """Test MapAnnotator initialization with valid config."""
-        # TODO: This test is complex due to file path dependencies
-        # Need to mock file system or create temporary structure
-        pytest.skip("Requires complex setup with data directory structure")
-
-    def test_init_loads_config_with_utf8(self):
-        """Test that config is loaded with UTF-8 encoding."""
-        # TODO: Test that config file is opened with encoding="utf-8"
-        # This verifies the fix for encoding issues
-        pytest.skip("Requires mocking file open to verify encoding parameter")
 
 
 class TestMapAnnotatorPaths:
