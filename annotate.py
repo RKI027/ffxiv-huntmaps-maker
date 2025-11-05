@@ -344,5 +344,10 @@ class MapAnnotator:
             self.blend_map(zone, save=True, from_backup=from_backup, show=False)
 
 
-if __name__ == "__main__":
+def main():
+    """CLI entry point for ffxiv-huntmaps-maker."""
     fire.Fire(MapAnnotator)
+
+
+if __name__ == "__main__":
+    main()
