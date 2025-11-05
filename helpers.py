@@ -161,7 +161,7 @@ class ZoneApi:
     def load_zone_info(self, zones=None):
         """Load the data (yaml only)"""
         with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
-            info = yaml.load(fp, Loader=yaml.Loader)
+            info = yaml.load(fp, Loader=yaml.SafeLoader)
         if zones:
             for zone in list(zones.keys()):
                 zones[zone].update(info[zone])

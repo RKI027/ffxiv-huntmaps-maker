@@ -109,9 +109,9 @@ These tests document expected behavior but are not currently executable without 
    - ~~`subprocess.run()` doesn't check return code~~
    - ~~ImageMagick failures may go unnoticed~~
 
-7. **Unsafe YAML Loading** (annotate.py:35, helpers.py:153)
-   - Using `yaml.Loader` instead of `yaml.SafeLoader`
-   - Security risk with untrusted YAML files
+7. ~~**Unsafe YAML Loading** (annotate.py:35, helpers.py:153)~~
+   - ~~Using `yaml.Loader` instead of `yaml.SafeLoader`~~
+   - ~~Security risk with untrusted YAML files~~
 
 8. **Missing file existence checks**
    - Image.open() calls without checking file exists first

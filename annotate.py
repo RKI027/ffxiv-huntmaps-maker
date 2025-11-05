@@ -32,7 +32,7 @@ class MapAnnotator:
 
     def __init__(self):
         with open("data/config.yaml", "rt", encoding="utf-8") as fp:
-            a = yaml.load_all(fp, Loader=yaml.Loader)
+            a = yaml.load_all(fp, Loader=yaml.SafeLoader)
             self._config = {k: v for i in a for k, v in i.items()}
 
         self._base_path = pathlib.Path(
