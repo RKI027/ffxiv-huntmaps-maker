@@ -74,7 +74,7 @@ class MapAnnotator:
             Example: A -> A1, A2"""
             fmarks = [k for k, v in lmarks.items() if v[0] == rank]
             for i, m in enumerate(sorted(fmarks)):
-                lmarks[m] = (f"{rank}{i+1}", lmarks[m][1])
+                lmarks[m] = (f"{rank}{i + 1}", lmarks[m][1])
 
         if rank_remap:
             remap_rank(marks, "A")

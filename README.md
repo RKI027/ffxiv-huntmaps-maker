@@ -70,6 +70,37 @@ python annotate.py [command] --help
 ffxiv-huntmaps [command] --help
 ```
 
+## Development
+
+If you want to contribute or modify the code:
+
+### Install with dev dependencies
+
+```bash
+uv sync --extra dev
+```
+
+This installs the project along with development tools like `ruff` (linting/formatting) and `pytest` (testing).
+
+### Code quality checks
+
+```bash
+# Check code with ruff
+uv run ruff check *.py
+
+# Auto-format code with ruff
+uv run ruff format *.py
+
+# Check formatting without modifying files
+uv run ruff format --check *.py
+```
+
+### Running tests
+
+```bash
+uv run pytest
+```
+
 ## To Dos
 
 * [ ] handle errors

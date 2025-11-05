@@ -29,6 +29,12 @@ dependencies = [
     "requests",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.8.0",
+    "pytest>=8.0.0",
+]
+
 [project.scripts]
 ffxiv-huntmaps = "annotate:main"
 
