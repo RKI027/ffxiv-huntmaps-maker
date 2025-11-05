@@ -78,6 +78,8 @@ If you want to contribute or modify the code:
 
 ```bash
 uv sync --extra dev
+# or with `pip`
+pip install -r requirements-dev.txt
 ```
 
 This installs the project along with development tools like `ruff` (linting/formatting) and `pytest` (testing).
@@ -99,12 +101,15 @@ uv run ruff format --check *.py
 
 ```bash
 uv run pytest
+# or with pip
+python -m pytest tests/ -v
 ```
+
+See `TEST_BASELINE.md` for detailed test results and known issues.
 
 ## To Dos
 
 * [ ] handle errors
-* [ ] write tests
 
 ## Disclaimer
 

@@ -33,6 +33,7 @@ dependencies = [
 dev = [
     "ruff>=0.8.0",
     "pytest>=8.0.0",
+    "responses>=0.23.0",
 ]
 
 [project.scripts]
