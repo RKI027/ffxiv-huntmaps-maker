@@ -81,21 +81,7 @@ These tests document expected behavior but are not currently executable without 
 
 These failures document **known issues** that need to be fixed:
 
-### 1. **Position Multiplication Error Handling** (3 related failures)
-- `test_position_mul_invalid_type` (2 instances)
-- `test_position_nested_operations_with_invalid_types`
-
-**Issue:** Position class doesn't properly raise TypeError when multiplied with invalid types (strings, etc.)
-
-**Location:** helpers.py:184-191 (Position.__mul__ method)
-
-**Current behavior:** Returns a result instead of raising an error
-
-**Expected fix:** Should raise `TypeError("Position expect to be multiplied by a Position-like or a scalar")`
-
----
-
-### 2. **Deprecated PIL textsize Method** (1 failure)
+### 1. **Deprecated PIL textsize Method** (1 failure)
 - `test_legend_draw`
 
 **Issue:** Using deprecated `ImageDraw.textsize()` method
@@ -123,14 +109,14 @@ These failures document **known issues** that need to be fixed:
 
 ### 🔴 Critical Issues
 
-1. ~~Inconsistent UTF-8 Encoding (helpers.py:59, 77, 83, 147)~~
+1. ~~**Inconsistent UTF-8 Encoding** (helpers.py:59, 77, 83, 147)~~
    - ~~Files opened without explicit encoding specification~~
    - ~~Will fail on systems with non-UTF-8 default encoding~~
    - ~~Affects: sort_marks(), save_zone_info()~~
 
-2. **Raising Strings Instead of Exceptions** (helpers.py:179, 191, 206)
-   - Position class raises strings: `raise "message"`
-   - Should raise proper exception objects: `raise TypeError("message")`
+2. ~~**Raising Strings Instead of Exceptions** (helpers.py:179, 191, 206)~~
+   - ~~Position class raises strings: `raise "message"`~~
+   - ~~Should raise proper exception objects: `raise TypeError("message")`~~
 
 3. **Deprecated Pillow API** (helpers.py:362, 383, 386)
    - Using `textsize()` which is removed in Pillow 10.0.0+
@@ -167,7 +153,7 @@ These failures document **known issues** that need to be fixed:
 See `README.md` for test execution instructions.
 
 1. ~~Fix UTF-8 encoding issues (add `encoding="utf-8"` to all file opens)~~
-2. Fix Position class exception raising (change string raises to TypeError)
+2. ~~Fix Position class exception raising (change string raises to TypeError)~~
 3. Fix deprecated textsize() calls (migrate to textbbox())
 4. Add proper error messages to all exceptions
 5. Add subprocess error checking

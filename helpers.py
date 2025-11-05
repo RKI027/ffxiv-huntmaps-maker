@@ -181,19 +181,31 @@ class Position:
             try:
                 return Position(self.x + other, self.y + other)
             except TypeError:
-                raise "Position expect to be added to a Position-like or a scalar"
+                raise TypeError(
+                    "Position expect to be added to a Position-like or a scalar"
+                )
 
     def __radd__(self, other):
         return self + other
 
     def __mul__(self, other):
+        if isinstance(other, str):
+            raise TypeError(
+                "Position expect to be multiplied by a Position-like or a scalar"
+            )
         try:
             return Position(self.x * other[0], self.y * other[1])
-        except TypeError:
+        except (TypeError, IndexError):
+            if not isinstance(other, (int, float, complex)):
+                raise TypeError(
+                    "Position expect to be multiplied by a Position-like or a scalar"
+                )
             try:
                 return Position(self.x * other, self.y * other)
             except TypeError:
-                raise "Position expect to be multiplied by a Position-like or a scalar"
+                raise TypeError(
+                    "Position expect to be multiplied by a Position-like or a scalar"
+                )
 
     def __rmul__(self, other):
         return self * other
@@ -208,7 +220,9 @@ class Position:
             try:
                 return Position(self.x - other, self.y - other)
             except TypeError:
-                raise "Position expect to be substracted from a Position-like or a scalar"
+                raise TypeError(
+                    "Position expect to be subtracted from a Position-like or a scalar"
+                )
 
     def __rsub__(self, other):
         return self.__neg__() + other
