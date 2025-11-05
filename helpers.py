@@ -113,10 +113,14 @@ class ZoneApi:
                     return next((item for item in candidates if item["ID"] == 26))[
                         "Url"
                     ]
-                raise Exception(candidates)
+                raise ValueError(
+                    f"Multiple zone candidates found for '{name}': {candidates}"
+                )
             return candidates[0]["Url"]
         else:
-            raise Exception(resp)
+            raise RuntimeError(
+                f"Failed to fetch zone URL for '{name}': HTTP {resp.status_code}"
+            )
 
     def get_zone_info(self, name):
         """Get the info about a zone"""
@@ -126,7 +130,9 @@ class ZoneApi:
             results = resp.json()["Maps"][0]
             return results
         else:
-            raise Exception(resp)
+            raise RuntimeError(
+                f"Failed to fetch zone info for '{name}': HTTP {resp.status_code}"
+            )
 
     def get_zone_data(self, info):
         """Build the data structure for the zone"""

@@ -95,13 +95,13 @@ These tests document expected behavior but are not currently executable without 
    - ~~Breaks Legend drawing functionality~~
    - ~~Must migrate to `textbbox()`~~
 
-4. **Generic Exception Types** (helpers.py:116, 119, 129)
-   - Using `raise Exception(...)` instead of specific types
-   - Makes error handling difficult
+4. ~~**Generic Exception Types** (helpers.py:116, 119, 129)~~
+   - ~~Using `raise Exception(...)` instead of specific types~~
+   - ~~Makes error handling difficult~~
 
-5. **Missing Error Messages** (annotate.py:317)
-   - `raise ValueError` without descriptive message
-   - Users won't know why size mismatch occurred
+5. ~~**Missing Error Messages** (annotate.py:317)~~
+   - ~~`raise ValueError` without descriptive message~~
+   - ~~Users won't know why size mismatch occurred~~
 
 ### 🟡 Medium Priority Issues
 

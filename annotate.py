@@ -314,7 +314,9 @@ class MapAnnotator:
         mask_layer = Image.open(mask_path)
 
         if map_layer.size != mask_layer.size:
-            raise ValueError
+            raise ValueError(
+                f"Map size {map_layer.size} does not match mask size {mask_layer.size} for zone '{name}'"
+            )
 
         np_map = np.array(map_layer)
         np_mask = np.array(mask_layer)
