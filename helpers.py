@@ -1,6 +1,7 @@
 from collections import namedtuple
 from copy import deepcopy
 import json
+from pathlib import Path
 import yaml
 from math import pi, cos, sin
 from operator import itemgetter
@@ -56,7 +57,7 @@ class MarksHelper:
         new_list = [t._asdict() for t in marklist]
         if filename == "str":
             return json.dumps(new_list)
-        with open(filename, "wt") as fp:
+        with open(filename, "wt", encoding="utf-8") as fp:
             json.dump(new_list, fp)
 
     @staticmethod
@@ -74,13 +75,17 @@ class MarksHelper:
 
         Sort the marks by zone, rank, name
         Sort the spawn points by x, y"""
-        with open(filename, "rt") as fp:
+        with open(filename, "rt", encoding="utf-8") as fp:
             marks = json.load(fp)
 
         marks.sort(key=itemgetter("zone", "rank", "name"))
         for mark in marks:
             mark["spawns"] = sorted(mark["spawns"], key=itemgetter(0, 1))
-        with open("new_" + filename, "wt") as fp:
+
+        # Create output path in same directory with "new_" prefix
+        filepath = Path(filename)
+        output_path = filepath.parent / ("new_" + filepath.name)
+        with open(output_path, "wt", encoding="utf-8") as fp:
             json.dump(marks, fp)
 
 
@@ -144,7 +149,7 @@ class ZoneApi:
             with open(self.cachename + ".json", "wt", encoding="utf-8") as fp:
                 json.dump(zones, fp)
                 return
-        with open(self.cachename + ".yaml", "wt") as fp:
+        with open(self.cachename + ".yaml", "wt", encoding="utf-8") as fp:
             yaml.safe_dump(zones, fp)
 
     def load_zone_info(self, zones=None):
@@ -176,19 +181,31 @@ class Position:
             try:
                 return Position(self.x + other, self.y + other)
             except TypeError:
-                raise "Position expect to be added to a Position-like or a scalar"
+                raise TypeError(
+                    "Position expect to be added to a Position-like or a scalar"
+                )
 
     def __radd__(self, other):
         return self + other
 
     def __mul__(self, other):
+        if isinstance(other, str):
+            raise TypeError(
+                "Position expect to be multiplied by a Position-like or a scalar"
+            )
         try:
             return Position(self.x * other[0], self.y * other[1])
-        except TypeError:
+        except (TypeError, IndexError):
+            if not isinstance(other, (int, float, complex)):
+                raise TypeError(
+                    "Position expect to be multiplied by a Position-like or a scalar"
+                )
             try:
                 return Position(self.x * other, self.y * other)
             except TypeError:
-                raise "Position expect to be multiplied by a Position-like or a scalar"
+                raise TypeError(
+                    "Position expect to be multiplied by a Position-like or a scalar"
+                )
 
     def __rmul__(self, other):
         return self * other
@@ -203,7 +220,9 @@ class Position:
             try:
                 return Position(self.x - other, self.y - other)
             except TypeError:
-                raise "Position expect to be substracted from a Position-like or a scalar"
+                raise TypeError(
+                    "Position expect to be subtracted from a Position-like or a scalar"
+                )
 
     def __rsub__(self, other):
         return self.__neg__() + other
@@ -359,9 +378,10 @@ class Legend:
         max_height = 0
         for mark in marks.keys():
             if mark:
-                _, h = draw.textsize(
-                    mark, font=self.font, stroke_width=self.font_stroke
+                bbox = draw.textbbox(
+                    (0, 0), mark, font=self.font, stroke_width=self.font_stroke
                 )
+                h = bbox[3] - bbox[1]
                 max_height = max(max_height, h)
 
         return max_height
@@ -380,10 +400,14 @@ class Legend:
             "SSs": "SS",
         }
         label = f"{mark_name} ({rank_label[mark_rank]})"
-        _, hc = draw.textsize(
-            "a", font=self.font, stroke_width=1
+        bbox = draw.textbbox(
+            (0, 0), "a", font=self.font, stroke_width=1
         )  # Determine the height of the text's baseline
-        w, h = draw.textsize(label, font=self.font, stroke_width=1)  # Actual text size
+        hc = bbox[3] - bbox[1]
+        bbox = draw.textbbox(
+            (0, 0), label, font=self.font, stroke_width=1
+        )  # Actual text size
+        w, h = bbox[2] - bbox[0], bbox[3] - bbox[1]
 
         draw.ellipse(
             [

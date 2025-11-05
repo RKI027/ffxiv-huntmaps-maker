@@ -1,6 +1,6 @@
 fire
 numpy
-pillow
+pillow>=8.0.0
 pyperclip
 pyyaml
 requests

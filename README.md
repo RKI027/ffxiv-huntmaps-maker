@@ -4,27 +4,21 @@ Library + CLI to annotate FFXIV in-game map assets with Elite Marks spawn positi
 
 ## Installation
 
+- Clone repo
+- cd to directory
+
 ### Option 1: Using uv (Recommended)
 
 [uv](https://docs.astral.sh/uv/) is a fast Python package installer and project manager.
 
-- You need python >= 3.10
-- Clone repo
-- cd to directory
 - Install uv if you haven't already: `curl -LsSf https://astral.sh/uv/install.sh | sh` (or see [uv installation docs](https://docs.astral.sh/uv/getting-started/installation/))
 - Run commands directly with `uv run`:
   - `uv run annotate.py` to get a list of commands
   - `uv run annotate.py check_files` to run a specific command
-- Or install as a CLI tool:
-  - `uv tool install .` (from the project directory)
-  - `ffxiv-huntmaps` to get a list of commands
 
 ### Option 2: Using pip
 
-- You need python >= 3.10
-- Clone repo
-- switch to any virtual/conda environment you'd like to use (or not)
-- cd to directory
+- switch to any virtual/conda environment you'd like to use (or not). Package is tested for python >= 3.10
 - `pip install -r requirements.txt`
 - `python annotate.py` to get a list of commands
 
@@ -66,8 +60,6 @@ Information on commands, their function and use is available through the tool.
 uv run annotate.py [command] --help
 # or with pip:
 python annotate.py [command] --help
-# or if installed with uv tool:
-ffxiv-huntmaps [command] --help
 ```
 
 ## Development
@@ -78,6 +70,8 @@ If you want to contribute or modify the code:
 
 ```bash
 uv sync --extra dev
+# or with `pip`
+pip install -r requirements-dev.txt
 ```
 
 This installs the project along with development tools like `ruff` (linting/formatting) and `pytest` (testing).
@@ -99,13 +93,37 @@ uv run ruff format --check *.py
 
 ```bash
 uv run pytest
+# or with pip
+python -m pytest tests/ -v
 ```
+
+See `TEST_BASELINE.md` for detailed test results and known issues.
 
 ## To Dos
 
-* [ ] handle errors
-* [ ] write tests
+1. **Generic Exception Types** (helpers.py:116, 119, 129)
+   - Using `raise Exception(...)` instead of specific types
+   - Makes error handling difficult
 
+2. **Missing Error Messages** (annotate.py:317)
+   - `raise ValueError` without descriptive message
+   - Users won't know why size mismatch occurred
+
+3. **No subprocess error checking** (annotate.py:221)
+   - `subprocess.run()` doesn't check return code
+   - ImageMagick failures may go unnoticed
+
+4. **Unsafe YAML Loading** (annotate.py:35, helpers.py:153)
+   - Using `yaml.Loader` instead of `yaml.SafeLoader`
+   - Security risk with untrusted YAML files
+
+5. **Missing file existence checks**
+   - Image.open() calls without checking file exists first
+   - No validation of ImageMagick path
+   - No validation of font file path
+
+6. **Review error handling**
+ 
 ## Disclaimer
 
 Use of the mods created with this tool is at your own risk. Square Enix does not permit the use of any third party tools, even those which do not modify the game. They have stated in interviews that they did not view parsers as a significant problem unless players use them to harass other players.
