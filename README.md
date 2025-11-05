@@ -8,7 +8,7 @@ Library + CLI to annotate FFXIV in-game map assets with Elite Marks spawn positi
 
 [uv](https://docs.astral.sh/uv/) is a fast Python package installer and project manager.
 
-- You need python >= 3.9
+- You need python >= 3.10
 - Clone repo
 - cd to directory
 - Install uv if you haven't already: `curl -LsSf https://astral.sh/uv/install.sh | sh` (or see [uv installation docs](https://docs.astral.sh/uv/getting-started/installation/))
@@ -21,7 +21,7 @@ Library + CLI to annotate FFXIV in-game map assets with Elite Marks spawn positi
 
 ### Option 2: Using pip
 
-- You need python >= 3.9
+- You need python >= 3.10
 - Clone repo
 - switch to any virtual/conda environment you'd like to use (or not)
 - cd to directory
