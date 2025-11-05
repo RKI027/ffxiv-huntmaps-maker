@@ -378,9 +378,10 @@ class Legend:
         max_height = 0
         for mark in marks.keys():
             if mark:
-                _, h = draw.textsize(
-                    mark, font=self.font, stroke_width=self.font_stroke
+                bbox = draw.textbbox(
+                    (0, 0), mark, font=self.font, stroke_width=self.font_stroke
                 )
+                h = bbox[3] - bbox[1]
                 max_height = max(max_height, h)
 
         return max_height
@@ -399,10 +400,14 @@ class Legend:
             "SSs": "SS",
         }
         label = f"{mark_name} ({rank_label[mark_rank]})"
-        _, hc = draw.textsize(
-            "a", font=self.font, stroke_width=1
+        bbox = draw.textbbox(
+            (0, 0), "a", font=self.font, stroke_width=1
         )  # Determine the height of the text's baseline
-        w, h = draw.textsize(label, font=self.font, stroke_width=1)  # Actual text size
+        hc = bbox[3] - bbox[1]
+        bbox = draw.textbbox(
+            (0, 0), label, font=self.font, stroke_width=1
+        )  # Actual text size
+        w, h = bbox[2] - bbox[0], bbox[3] - bbox[1]
 
         draw.ellipse(
             [

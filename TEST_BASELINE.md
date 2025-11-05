@@ -77,31 +77,15 @@ These tests document expected behavior but are not currently executable without 
 
 ---
 
-#### ❌ Failing Tests (5 tests)
+#### ❌ Failing Tests (1 tests)
 
 These failures document **known issues** that need to be fixed:
 
-### 1. **Deprecated PIL textsize Method** (1 failure)
-- `test_legend_draw`
+### 1. **TestLegend test_legend_creation** (1 failure)
 
-**Issue:** Using deprecated `ImageDraw.textsize()` method
+**Issue:** Test fails with OSError
 
-**Location:** helpers.py:362, 383, 386
-
-**Error:** `AttributeError: 'ImageDraw' object has no attribute 'textsize'`
-
-**Current behavior:** Crashes with AttributeError in newer Pillow versions
-
-**Expected fix:** Replace with `textbbox()` method
-
----
-
-### 3. **MapAnnotator Init Test** (1 failure)
-- `test_init_requires_config_file`
-
-**Issue:** Test expects FileNotFoundError but config file exists
-
-**Status:** Not a bug - test assumption was wrong
+**Status:** to investigate
 
 ---
 
@@ -118,12 +102,12 @@ These failures document **known issues** that need to be fixed:
    - ~~Position class raises strings: `raise "message"`~~
    - ~~Should raise proper exception objects: `raise TypeError("message")`~~
 
-3. **Deprecated Pillow API** (helpers.py:362, 383, 386)
-   - Using `textsize()` which is removed in Pillow 10.0.0+
-   - Breaks Legend drawing functionality
-   - Must migrate to `textbbox()`
+3. ~~**Deprecated Pillow API** (helpers.py:362, 383, 386)~~
+   - ~~Using `textsize()` which is removed in Pillow 10.0.0+~~
+   - ~~Breaks Legend drawing functionality~~
+   - ~~Must migrate to `textbbox()`~~
 
-4. **Generic Exception Types** (helpers.py:111, 114, 124)
+4. **Generic Exception Types** (helpers.py:116, 119, 129)
    - Using `raise Exception(...)` instead of specific types
    - Makes error handling difficult
 
@@ -154,7 +138,7 @@ See `README.md` for test execution instructions.
 
 1. ~~Fix UTF-8 encoding issues (add `encoding="utf-8"` to all file opens)~~
 2. ~~Fix Position class exception raising (change string raises to TypeError)~~
-3. Fix deprecated textsize() calls (migrate to textbbox())
+3. ~~Fix deprecated textsize() calls (migrate to textbbox())~~
 4. Add proper error messages to all exceptions
 5. Add subprocess error checking
 6. Use SafeLoader for YAML
