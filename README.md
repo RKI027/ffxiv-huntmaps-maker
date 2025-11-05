@@ -4,7 +4,24 @@ Library + CLI to annotate FFXIV in-game map assets with Elite Marks spawn positi
 
 ## Installation
 
-- You need python >= 3.7
+### Option 1: Using uv (Recommended)
+
+[uv](https://docs.astral.sh/uv/) is a fast Python package installer and project manager.
+
+- You need python >= 3.10
+- Clone repo
+- cd to directory
+- Install uv if you haven't already: `curl -LsSf https://astral.sh/uv/install.sh | sh` (or see [uv installation docs](https://docs.astral.sh/uv/getting-started/installation/))
+- Run commands directly with `uv run`:
+  - `uv run annotate.py` to get a list of commands
+  - `uv run annotate.py check_files` to run a specific command
+- Or install as a CLI tool:
+  - `uv tool install .` (from the project directory)
+  - `ffxiv-huntmaps` to get a list of commands
+
+### Option 2: Using pip
+
+- You need python >= 3.10
 - Clone repo
 - switch to any virtual/conda environment you'd like to use (or not)
 - cd to directory
@@ -17,11 +34,11 @@ The process is the following:
 
 1. Using TexTools, export the dds for each map somewhere (default TexTools path is a good choice)
 2. Edit `data/config.yaml` to adjust to your preferences, especially the paths
-3. Assuming you just exported the original dds map files, run: `python annotate.py check_files` and, assuming this came out without any error, run `python annotate.py backup_files`. From there, you're ready to work.
+3. Assuming you just exported the original dds map files, run: `uv run annotate.py check_files` (or `python annotate.py check_files` if using pip) and, assuming this came out without any error, run `uv run annotate.py backup_files`. From there, you're ready to work.
 4. review `zone_info.yaml` in case the asset path in the game files has changed (occasionally, SE will move a map from zonename to "zonename 00"). Remove/Add/Amend a zonename entry for the zones concerned if needed. If the zonename entry doesn't exist, the script will use the true zone name.
 5. Edit the marker/legend styles in `data/config.yaml` as desired
-6. Run `python annotate.py annotate_map zone_name` to annotate that zone. It will open a view of the annotated map
-7. Once ready, run `python annotate.py annotate_all`. All maps will be rendered and saved (both in the project path and in original asset path)
+6. Run `uv run annotate.py annotate_map zone_name` to annotate that zone. It will open a view of the annotated map
+7. Once ready, run `uv run annotate.py annotate_all`. All maps will be rendered and saved (both in the project path and in original asset path)
 8. With TexTools:
 
     * import one by one the new dds files
@@ -46,7 +63,42 @@ See [this](https://github.com/RKI027/ffxiv-huntmaps/blob/master/Blended/README.m
 Information on commands, their function and use is available through the tool.
 
 ```cmd
+uv run annotate.py [command] --help
+# or with pip:
 python annotate.py [command] --help
+# or if installed with uv tool:
+ffxiv-huntmaps [command] --help
+```
+
+## Development
+
+If you want to contribute or modify the code:
+
+### Install with dev dependencies
+
+```bash
+uv sync --extra dev
+```
+
+This installs the project along with development tools like `ruff` (linting/formatting) and `pytest` (testing).
+
+### Code quality checks
+
+```bash
+# Check code with ruff
+uv run ruff check *.py
+
+# Auto-format code with ruff
+uv run ruff format *.py
+
+# Check formatting without modifying files
+uv run ruff format --check *.py
+```
+
+### Running tests
+
+```bash
+uv run pytest
 ```
 
 ## To Dos

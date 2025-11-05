@@ -49,7 +49,7 @@ class MapAnnotator:
         ZoneApi(zones.keys()).load_zone_info(zones)
         self._zones = zones
         self._Mark, self._marks = MarksHelper.load_marks("data/marks.json")
-        self._iscli = inspect.stack()[-2].function == "Fire"
+        self._iscli = inspect.stack()[-3].function == "Fire"
 
     def _get_path(self, name, project=False, backup=False, ext=None):
         base = self._base_path if not project else self._project_path
@@ -74,7 +74,7 @@ class MapAnnotator:
             Example: A -> A1, A2"""
             fmarks = [k for k, v in lmarks.items() if v[0] == rank]
             for i, m in enumerate(sorted(fmarks)):
-                lmarks[m] = (f"{rank}{i+1}", lmarks[m][1])
+                lmarks[m] = (f"{rank}{i + 1}", lmarks[m][1])
 
         if rank_remap:
             remap_rank(marks, "A")
@@ -344,5 +344,10 @@ class MapAnnotator:
             self.blend_map(zone, save=True, from_backup=from_backup, show=False)
 
 
-if __name__ == "__main__":
+def main():
+    """CLI entry point for ffxiv-huntmaps-maker."""
     fire.Fire(MapAnnotator)
+
+
+if __name__ == "__main__":
+    main()

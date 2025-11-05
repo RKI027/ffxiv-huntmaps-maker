@@ -12,7 +12,7 @@ import requests
 
 def yml_tuple_constructor(loader, node):
     """This is to convert the string written as a tuple into a python tuple
-    
+
     from https://stackoverflow.com/a/48452275t"""
 
     def parse_tup_el(el):
@@ -71,7 +71,7 @@ class MarksHelper:
     @staticmethod
     def sort_marks(filename):
         """Load, sort the data and dump it back.
-        
+
         Sort the marks by zone, rank, name
         Sort the spawn points by x, y"""
         with open(filename, "rt") as fp:
