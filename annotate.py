@@ -31,9 +31,15 @@ class MapAnnotator:
     user $PATH or provided in configuration)"""
 
     def __init__(self):
-        with open("data/config.yaml", "rt", encoding="utf-8") as fp:
-            a = yaml.load_all(fp, Loader=yaml.SafeLoader)
-            self._config = {k: v for i in a for k, v in i.items()}
+        try:
+            with open("data/config.yaml", "rt", encoding="utf-8") as fp:
+                a = yaml.load_all(fp, Loader=yaml.SafeLoader)
+                self._config = {k: v for i in a for k, v in i.items()}
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                "Configuration file not found at 'data/config.yaml'. "
+                "Please ensure the file exists or run from the correct directory."
+            )
 
         self._base_path = pathlib.Path(
             self._config["tool"]["textools_path"]
