@@ -139,7 +139,13 @@ class ZoneApi:
                 "Check your internet connection."
             )
         if resp.ok:
-            results = resp.json()["Results"]
+            try:
+                results = resp.json()["Results"]
+            except KeyError:
+                raise RuntimeError(
+                    f"Unexpected response format from xivapi.com for zone '{name}'. "
+                    "The API may have changed."
+                )
             candidates = []
             for res in results:
                 if res["Name"] == name:
@@ -179,7 +185,13 @@ class ZoneApi:
                 "Check your internet connection."
             )
         if resp.ok:
-            results = resp.json()["Maps"][0]
+            try:
+                results = resp.json()["Maps"][0]
+            except (KeyError, IndexError):
+                raise RuntimeError(
+                    f"Unexpected response format from xivapi.com for zone '{name}'. "
+                    "The API may have changed."
+                )
             return results
         else:
             raise RuntimeError(

@@ -156,20 +156,11 @@
 - **Status**: ✅ GOOD - Raises ValueError with candidates shown
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:65-84`
 
-#### 5.5 Unexpected API response format
-- **Location**: `helpers.py:106`, `helpers.py:130`
+#### ~~5.5 Unexpected API response format~~ ✅ FIXED
+- **Location**: `helpers.py:137-143`, `helpers.py:183-189`
 - **Issue**: KeyError if API changes response structure
 - **Impact**: Cryptic error about missing key
-- **Suggested Fix**: Catch KeyError during response parsing:
-  ```
-  try:
-    results = resp.json()["Results"]
-  except KeyError:
-    raise RuntimeError(
-      "Unexpected response format from xivapi.com for zone '{name}'.
-       The API may have changed."
-    )
-  ```
+- **Fix Applied**: Added KeyError/IndexError handlers for API response parsing
 
 ---
 
