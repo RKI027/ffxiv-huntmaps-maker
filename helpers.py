@@ -63,8 +63,27 @@ class MarksHelper:
     @staticmethod
     def load_marks(filename):
         """Load the json file and build the list of namedtuples"""
-        with open(filename, "rt", encoding="utf-8") as fp:
-            marks = json.load(fp)
+        try:
+            with open(filename, "rt", encoding="utf-8") as fp:
+                marks = json.load(fp)
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Marks data file not found: {filename}. "
+                "Please ensure data/marks.json exists."
+            )
+        except json.JSONDecodeError as e:
+            raise json.JSONDecodeError(
+                f"Invalid JSON in marks file '{filename}' at line {e.lineno}: {e.msg}. "
+                "Please check the file format.",
+                e.msg,
+                e.lineno,
+            )
+
+        if not marks or len(marks) == 0:
+            raise ValueError(
+                f"Marks file '{filename}' is empty or has no valid mark entries. "
+                "Please ensure the file contains valid mark data."
+            )
 
         Mark = namedtuple("Mark", marks[0])
         return Mark, [Mark(**mark) for mark in marks]
@@ -104,13 +123,37 @@ class ZoneApi:
         """query xivapi to find the url to access zone info.
 
         There's a trick to Mor Dhona as the zone exists under multiple id"""
-        resp = requests.get(f"{self.base_url}/search?indexes=PlaceName&string={name}")
+        try:
+            resp = requests.get(
+                f"{self.base_url}/search?indexes=PlaceName&string={name}", timeout=30
+            )
+        except requests.Timeout:
+            raise RuntimeError(
+                f"Request to xivapi.com timed out for zone '{name}'. "
+                "Check your internet connection or try again later."
+            )
+        except requests.ConnectionError:
+            raise RuntimeError(
+                f"Failed to connect to xivapi.com for zone '{name}'. "
+                "Check your internet connection."
+            )
         if resp.ok:
-            results = resp.json()["Results"]
+            try:
+                results = resp.json()["Results"]
+            except KeyError:
+                raise RuntimeError(
+                    f"Unexpected response format from xivapi.com for zone '{name}'. "
+                    "The API may have changed."
+                )
             candidates = []
             for res in results:
                 if res["Name"] == name:
                     candidates.append(res)
+            if not candidates:
+                raise ValueError(
+                    f"Zone '{name}' not found on xivapi.com. "
+                    "Check the zone name spelling."
+                )
             if len(candidates) > 1:
                 if name == "Mor Dhona":
                     return next((item for item in candidates if item["ID"] == 26))[
@@ -128,9 +171,26 @@ class ZoneApi:
     def get_zone_info(self, name):
         """Get the info about a zone"""
         zone_url = self._get_zone_url(name)
-        resp = requests.get(f"{self.base_url}{zone_url}")
+        try:
+            resp = requests.get(f"{self.base_url}{zone_url}", timeout=30)
+        except requests.Timeout:
+            raise RuntimeError(
+                f"Request to xivapi.com timed out for zone '{name}'. "
+                "Check your internet connection or try again later."
+            )
+        except requests.ConnectionError:
+            raise RuntimeError(
+                f"Failed to connect to xivapi.com for zone '{name}'. "
+                "Check your internet connection."
+            )
         if resp.ok:
-            results = resp.json()["Maps"][0]
+            try:
+                results = resp.json()["Maps"][0]
+            except (KeyError, IndexError):
+                raise RuntimeError(
+                    f"Unexpected response format from xivapi.com for zone '{name}'. "
+                    "The API may have changed."
+                )
             return results
         else:
             raise RuntimeError(
@@ -163,8 +223,18 @@ class ZoneApi:
 
     def load_zone_info(self, zones=None):
         """Load the data (yaml only)"""
-        with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
-            info = yaml.load(fp, Loader=yaml.SafeLoader)
+        try:
+            with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
+                info = yaml.load(fp, Loader=yaml.SafeLoader)
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Zone information file not found: {self.cachename}.yaml. "
+                "Please ensure data/zone_info.yaml exists."
+            )
+        except yaml.YAMLError as e:
+            raise yaml.YAMLError(
+                f"Invalid YAML in zone info file: {e}. Please check the file format."
+            )
         if zones:
             for zone in list(zones.keys()):
                 zones[zone].update(info[zone])
@@ -258,6 +328,11 @@ class Position:
 def compute_columns(n_items, n_rows):
     """Compute the required number of columns given a number of items
     n_items to be displayed in a grid n_rows x n_cols"""
+    if n_rows <= 0 or n_items < 0:
+        raise ValueError(
+            f"Invalid grid parameters: n_items={n_items}, n_rows={n_rows}. "
+            "Both must be positive (n_rows > 0, n_items >= 0)."
+        )
     if n_rows > n_items:
         return n_items, 1
     d = n_items // n_rows

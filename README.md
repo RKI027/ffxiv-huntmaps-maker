@@ -142,7 +142,6 @@ See `tests/README.md` for more details.
 
 ## To Dos
 
-* **Review error handling**
 * **Improve the workflow w.r.t the backup files [#8](https://github.com/RKI027/ffxiv-huntmaps-maker/issues/8)**:
    - changing `backup` to `orig` or `original` to better reflect the purpose
    - better handling in the case of the backup already existing: we want to be able to overwrite a backup in case the actual game map changed but avoid overwriting it if the backup source is an annotated map (since we save the annotated map with the same name). This would be made moot with 3.

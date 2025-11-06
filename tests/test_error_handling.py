@@ -1,4 +1,5 @@
 """Tests for error handling scenarios."""
+
 import os
 import pytest
 import responses
@@ -51,7 +52,7 @@ class TestZoneApiErrorHandling:
         responses.add(
             responses.GET,
             "https://xivapi.com/search?indexes=PlaceName&string=Invalid Zone",
-            status=500
+            status=500,
         )
 
         api = ZoneApi(["Invalid Zone"])
@@ -70,10 +71,10 @@ class TestZoneApiErrorHandling:
             json={
                 "Results": [
                     {"Name": "Ambiguous Zone", "ID": 1, "Url": "/place/1"},
-                    {"Name": "Ambiguous Zone", "ID": 2, "Url": "/place/2"}
+                    {"Name": "Ambiguous Zone", "ID": 2, "Url": "/place/2"},
                 ]
             },
-            status=200
+            status=200,
         )
 
         api = ZoneApi(["Ambiguous Zone"])
@@ -90,20 +91,12 @@ class TestZoneApiErrorHandling:
         responses.add(
             responses.GET,
             "https://xivapi.com/search?indexes=PlaceName&string=Test Zone",
-            json={
-                "Results": [
-                    {"Name": "Test Zone", "ID": 1, "Url": "/place/1"}
-                ]
-            },
-            status=200
+            json={"Results": [{"Name": "Test Zone", "ID": 1, "Url": "/place/1"}]},
+            status=200,
         )
 
         # Mock failed zone info request
-        responses.add(
-            responses.GET,
-            "https://xivapi.com/place/1",
-            status=404
-        )
+        responses.add(responses.GET, "https://xivapi.com/place/1", status=404)
 
         api = ZoneApi(["Test Zone"])
 
@@ -119,7 +112,7 @@ class TestZoneApiErrorHandling:
         responses.add(
             responses.GET,
             "https://xivapi.com/search?indexes=PlaceName&string=Test Zone",
-            body=Exception("Connection timeout")
+            body=Exception("Connection timeout"),
         )
 
         api = ZoneApi(["Test Zone"])
@@ -134,7 +127,7 @@ class TestZoneApiErrorHandling:
             responses.GET,
             "https://xivapi.com/search?indexes=PlaceName&string=Nonexistent Zone",
             json={"Results": []},
-            status=200
+            status=200,
         )
 
         api = ZoneApi(["Nonexistent Zone"])
@@ -202,6 +195,7 @@ class TestFileOperationErrors:
         if platform.system() == "Windows":
             # Check if running as Administrator on Windows
             import ctypes
+
             try:
                 is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
             except:
@@ -237,26 +231,15 @@ class TestValueErrors:
         """Test compute_columns with zero rows."""
         from helpers import compute_columns
 
-        # TODO: Should handle edge case of zero rows
-        # Current implementation may cause division by zero
-        try:
+        with pytest.raises(ValueError):
             rows, cols = compute_columns(10, 0)
-            # If it doesn't raise, verify behavior
-            assert cols >= 1
-        except ZeroDivisionError:
-            pytest.skip("compute_columns doesn't handle zero rows")
 
     def test_compute_columns_negative_values(self):
         """Test compute_columns with negative values."""
         from helpers import compute_columns
 
-        # TODO: Should validate inputs
-        # Current implementation may produce invalid results
-        try:
+        with pytest.raises(ValueError):
             rows, cols = compute_columns(-5, 3)
-            # Document current behavior
-        except (ValueError, ZeroDivisionError):
-            pass  # Expected
 
     def test_m2c_with_extreme_values(self):
         """Test coordinate conversion with extreme values."""
@@ -278,10 +261,7 @@ class TestValueErrors:
         img = Image.new("RGBA", (100, 100), color=(255, 255, 255, 255))
 
         result = drop_shadow(
-            img,
-            offset=Position(5, 5),
-            shadow_color="#000000",
-            iterations=0
+            img, offset=Position(5, 5), shadow_color="#000000", iterations=0
         )
 
         assert result.size == img.size
@@ -295,10 +275,7 @@ class TestValueErrors:
 
         # Should handle negative offsets
         result = drop_shadow(
-            img,
-            offset=Position(-5, -5),
-            shadow_color="#000000",
-            iterations=2
+            img, offset=Position(-5, -5), shadow_color="#000000", iterations=2
         )
 
         assert result.size == img.size

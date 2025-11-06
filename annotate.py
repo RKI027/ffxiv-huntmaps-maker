@@ -31,19 +31,36 @@ class MapAnnotator:
     user $PATH or provided in configuration)"""
 
     def __init__(self):
-        with open("data/config.yaml", "rt", encoding="utf-8") as fp:
-            a = yaml.load_all(fp, Loader=yaml.SafeLoader)
-            self._config = {k: v for i in a for k, v in i.items()}
+        try:
+            with open("data/config.yaml", "rt", encoding="utf-8") as fp:
+                a = yaml.load_all(fp, Loader=yaml.SafeLoader)
+                self._config = {k: v for i in a for k, v in i.items()}
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                "Configuration file not found at 'data/config.yaml'. "
+                "Please ensure the file exists or run from the correct directory."
+            )
+        except yaml.YAMLError as e:
+            raise ValueError(
+                f"Invalid YAML syntax in 'data/config.yaml': {e}\n"
+                "Check for proper indentation and syntax."
+            )
 
-        self._base_path = pathlib.Path(
-            self._config["tool"]["textools_path"]
-        ).expanduser()
-        self._project_path = pathlib.Path(
-            self._config["tool"]["project_path"]
-        ).expanduser()
-        self._magickpath = self._config["tool"]["imagemagick_path"] or shutil.which(
-            "magick"
-        )
+        try:
+            self._base_path = pathlib.Path(
+                self._config["tool"]["textools_path"]
+            ).expanduser()
+            self._project_path = pathlib.Path(
+                self._config["tool"]["project_path"]
+            ).expanduser()
+            self._magickpath = self._config["tool"]["imagemagick_path"] or shutil.which(
+                "magick"
+            )
+        except KeyError as e:
+            raise KeyError(
+                f"Missing required configuration key: {e} in data/config.yaml. "
+                "Please check your configuration file."
+            )
 
         # Validate ImageMagick path
         if not self._magickpath:
@@ -55,13 +72,39 @@ class MapAnnotator:
                 f"ImageMagick path does not exist: {self._magickpath}"
             )
 
+        # Validate color values
+        from PIL import ImageColor
+
+        try:
+            colors = self._config.get("colors", {})
+            for rank, color in colors.items():
+                ImageColor.getrgb(color)
+        except (ValueError, AttributeError):
+            raise ValueError(
+                f"Invalid color value '{color}' for rank '{rank}' in config.yaml. "
+                "Use named colors (e.g., 'red') or hex codes (e.g., '#FF0000')."
+            )
+
         zones = self._config["zones"]
         ZoneApi(zones.keys()).load_zone_info(zones)
         self._zones = zones
         self._Mark, self._marks = MarksHelper.load_marks("data/marks.json")
         self._iscli = inspect.stack()[-3].function == "Fire"
 
+    def _validate_zone(self, name):
+        """Validate that a zone name exists in configuration."""
+        if name not in self._zones:
+            available = ", ".join(sorted(self._zones.keys())[:10])
+            total = len(self._zones)
+            if total > 10:
+                available += f"... ({total - 10} more)"
+            raise ValueError(
+                f"Unknown zone '{name}'. "
+                f"Available zones (showing up to 10): {available}"
+            )
+
     def _get_path(self, name, project=False, backup=False, ext=None):
+        self._validate_zone(name)
         base = self._base_path if not project else self._project_path
         base = base / "Saved" / "UI" / "Maps"
         region = self._zones[name]["region"]
@@ -147,7 +190,18 @@ class MapAnnotator:
         for name in self._zones:
             path = self._get_path(name)
             bpath = self._get_path(name, backup=True)
-            shutil.copy(path, bpath)
+            try:
+                shutil.copy(path, bpath)
+            except FileNotFoundError:
+                raise FileNotFoundError(
+                    f"Source map file not found for zone '{name}': {path}. "
+                    "Please ensure you've exported the map from TexTools."
+                )
+            except PermissionError:
+                raise PermissionError(
+                    f"Permission denied when creating backup for '{name}': {bpath}. "
+                    "Please check file and directory permissions."
+                )
         print("Backup complete.")
 
     def annotate_map(self, name, save=False, show=True):
@@ -161,12 +215,24 @@ class MapAnnotator:
                 f"Map file not found for zone '{name}': {map_path}. "
                 f"Please ensure backup files exist by running backup_files() first."
             )
-        map_layer = Image.open(map_path)
+        try:
+            map_layer = Image.open(map_path)
+        except Image.UnidentifiedImageError:
+            raise ValueError(
+                f"Cannot open map file for '{name}': {map_path}. "
+                "File may be corrupted or in an unsupported format."
+            )
 
         marker_layer = Image.new("RGBA", map_layer.size, color=(0, 0, 0, 0))
 
         scale = self._zones[name]["scale"]
         zone_marks = self._get_zone_marks(name, True)
+        if not zone_marks:
+            import warnings
+
+            warnings.warn(
+                f"No marks found for zone '{name}'. Annotated map will be empty."
+            )
         spawns = defaultdict(dict)
         for mark, (rank, spots) in zone_marks.items():
             for p in spots:
@@ -232,7 +298,13 @@ class MapAnnotator:
     def _save_map(self, img, name):
         src = self._get_path(name, ext="bmp")
         dst = src.with_suffix(".dds")
-        img.save(src, format="bmp")
+        try:
+            img.save(src, format="bmp")
+        except OSError as e:
+            raise OSError(
+                f"Failed to save map '{name}' to {src}: {e}. "
+                "Check available disk space and permissions."
+            )
         cmd = f'{self._magickpath} convert -define dds:compression=dxt1 -define dds:mipmaps=0 "{src}" "{dst}"'
         try:
             subprocess.run(cmd, capture_output=True, check=True, shell=True)
@@ -246,10 +318,22 @@ class MapAnnotator:
         src.unlink()
         pdst = self._get_path(name, ext="dds", project=True)
         os.makedirs(os.path.dirname(pdst), exist_ok=True)
-        shutil.copy(dst, pdst)
+        try:
+            shutil.copy(dst, pdst)
+        except OSError as e:
+            raise OSError(
+                f"Failed to copy map '{name}' to project directory {pdst}: {e}. "
+                "Check available disk space and permissions."
+            )
 
         preview_dst = pdst.with_suffix(".png")
-        img.save(preview_dst, format="png")
+        try:
+            img.save(preview_dst, format="png")
+        except OSError as e:
+            raise OSError(
+                f"Failed to save preview for '{name}' to {preview_dst}: {e}. "
+                "Check available disk space and permissions."
+            )
 
     def annotate_all(self):
         """Annotate and save all maps.
@@ -346,8 +430,20 @@ class MapAnnotator:
                 f"Expected mask for expansion '{self._zones[name]['expansion']}'."
             )
 
-        map_layer = Image.open(map_file_path)
-        mask_layer = Image.open(mask_path)
+        try:
+            map_layer = Image.open(map_file_path)
+        except Image.UnidentifiedImageError:
+            raise ValueError(
+                f"Cannot open map file for '{name}': {map_file_path}. "
+                "File may be corrupted or in an unsupported format."
+            )
+        try:
+            mask_layer = Image.open(mask_path)
+        except Image.UnidentifiedImageError:
+            raise ValueError(
+                f"Cannot open mask file: {mask_path}. "
+                "File may be corrupted or in an unsupported format."
+            )
 
         if map_layer.size != mask_layer.size:
             raise ValueError(
