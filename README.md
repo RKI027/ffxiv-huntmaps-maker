@@ -101,28 +101,7 @@ See `TEST_BASELINE.md` for detailed test results and known issues.
 
 ## To Dos
 
-1. **Generic Exception Types** (helpers.py:116, 119, 129)
-   - Using `raise Exception(...)` instead of specific types
-   - Makes error handling difficult
-
-2. **Missing Error Messages** (annotate.py:317)
-   - `raise ValueError` without descriptive message
-   - Users won't know why size mismatch occurred
-
-3. **No subprocess error checking** (annotate.py:221)
-   - `subprocess.run()` doesn't check return code
-   - ImageMagick failures may go unnoticed
-
-4. **Unsafe YAML Loading** (annotate.py:35, helpers.py:153)
-   - Using `yaml.Loader` instead of `yaml.SafeLoader`
-   - Security risk with untrusted YAML files
-
-5. **Missing file existence checks**
-   - Image.open() calls without checking file exists first
-   - No validation of ImageMagick path
-   - No validation of font file path
-
-6. **Review error handling**
+1. **Review error handling**
  
 ## Disclaimer
 

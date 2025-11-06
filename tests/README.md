@@ -1,15 +1,8 @@
-# Test Baseline Report
+# Test README
 
-Date: 2025-11-05
-Total Tests: 114 (68 passed, 39 skipped, 6 failing, 1 deselected)
+## Test Coverage
 
-## Test Suite Summary
-
-This test suite was created BEFORE any fixes were applied to document the current behavior of the codebase. The tests will serve as regression tests to ensure fixes don't break existing functionality.
-
-### Test Coverage
-
-#### ✅ Working Tests (68 passing)
+#### ✅ Working Tests
 
 **Position Class (31 tests)**
 - Basic creation and operations
@@ -65,7 +58,7 @@ This test suite was created BEFORE any fixes were applied to document the curren
 
 ---
 
-#### ⏭️ Skipped Tests (39 tests)
+#### ⏭️ Skipped Tests
 
 Most MapAnnotator tests are skipped due to complexity requiring:
 - Full directory structure setup
@@ -74,63 +67,6 @@ Most MapAnnotator tests are skipped due to complexity requiring:
 - Image file fixtures
 
 These tests document expected behavior but are not currently executable without extensive setup.
-
----
-
-## Known Issues Documented by Tests
-
-### 🔴 Critical Issues
-
-1. ~~**Inconsistent UTF-8 Encoding** (helpers.py:59, 77, 83, 147)~~
-   - ~~Files opened without explicit encoding specification~~
-   - ~~Will fail on systems with non-UTF-8 default encoding~~
-   - ~~Affects: sort_marks(), save_zone_info()~~
-
-2. ~~**Raising Strings Instead of Exceptions** (helpers.py:179, 191, 206)~~
-   - ~~Position class raises strings: `raise "message"`~~
-   - ~~Should raise proper exception objects: `raise TypeError("message")`~~
-
-3. ~~**Deprecated Pillow API** (helpers.py:362, 383, 386)~~
-   - ~~Using `textsize()` which is removed in Pillow 10.0.0+~~
-   - ~~Breaks Legend drawing functionality~~
-   - ~~Must migrate to `textbbox()`~~
-
-4. **Generic Exception Types** (helpers.py:116, 119, 129)
-   - Using `raise Exception(...)` instead of specific types
-   - Makes error handling difficult
-
-5. **Missing Error Messages** (annotate.py:317)
-   - `raise ValueError` without descriptive message
-   - Users won't know why size mismatch occurred
-
-### 🟡 Medium Priority Issues
-
-6. **No subprocess error checking** (annotate.py:221)
-   - `subprocess.run()` doesn't check return code
-   - ImageMagick failures may go unnoticed
-
-7. **Unsafe YAML Loading** (annotate.py:35, helpers.py:153)
-   - Using `yaml.Loader` instead of `yaml.SafeLoader`
-   - Security risk with untrusted YAML files
-
-8. **Missing file existence checks**
-   - Image.open() calls without checking file exists first
-   - No validation of ImageMagick path
-   - No validation of font file path
-
----
-
-## Next Steps
-
-See `README.md` for test execution instructions.
-
-1. ~~Fix UTF-8 encoding issues (add `encoding="utf-8"` to all file opens)~~
-2. ~~Fix Position class exception raising (change string raises to TypeError)~~
-3. ~~Fix deprecated textsize() calls (migrate to textbbox())~~
-4. Add proper error messages to all exceptions
-5. Add subprocess error checking
-6. Use SafeLoader for YAML
-7. Re-run tests to verify fixes don't break passing tests
 
 ---
 

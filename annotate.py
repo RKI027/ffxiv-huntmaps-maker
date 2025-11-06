@@ -32,7 +32,7 @@ class MapAnnotator:
 
     def __init__(self):
         with open("data/config.yaml", "rt", encoding="utf-8") as fp:
-            a = yaml.load_all(fp, Loader=yaml.Loader)
+            a = yaml.load_all(fp, Loader=yaml.SafeLoader)
             self._config = {k: v for i in a for k, v in i.items()}
 
         self._base_path = pathlib.Path(
@@ -44,6 +44,16 @@ class MapAnnotator:
         self._magickpath = self._config["tool"]["imagemagick_path"] or shutil.which(
             "magick"
         )
+
+        # Validate ImageMagick path
+        if not self._magickpath:
+            raise FileNotFoundError(
+                "ImageMagick not found. Please install ImageMagick or specify the path in config.yaml"
+            )
+        if not os.path.exists(self._magickpath):
+            raise FileNotFoundError(
+                f"ImageMagick path does not exist: {self._magickpath}"
+            )
 
         zones = self._config["zones"]
         ZoneApi(zones.keys()).load_zone_info(zones)
@@ -145,7 +155,13 @@ class MapAnnotator:
 
         Saves are made both in the TexTools folder for easy import and to the map project folder for repo update.
         """
-        map_layer = Image.open(self._get_path(name, backup=True))
+        map_path = self._get_path(name, backup=True)
+        if not os.path.exists(map_path):
+            raise FileNotFoundError(
+                f"Map file not found for zone '{name}': {map_path}. "
+                f"Please ensure backup files exist by running backup_files() first."
+            )
+        map_layer = Image.open(map_path)
 
         marker_layer = Image.new("RGBA", map_layer.size, color=(0, 0, 0, 0))
 
@@ -218,7 +234,15 @@ class MapAnnotator:
         dst = src.with_suffix(".dds")
         img.save(src, format="bmp")
         cmd = f'{self._magickpath} convert -define dds:compression=dxt1 -define dds:mipmaps=0 "{src}" "{dst}"'
-        subprocess.run(cmd, capture_output=True)
+        try:
+            subprocess.run(cmd, capture_output=True, check=True, shell=True)
+        except subprocess.CalledProcessError as e:
+            raise RuntimeError(
+                f"ImageMagick conversion failed for '{name}'. "
+                f"Command: {cmd}\n"
+                f"Return code: {e.returncode}\n"
+                f"stderr: {e.stderr.decode() if e.stderr else 'N/A'}"
+            ) from e
         src.unlink()
         pdst = self._get_path(name, ext="dds", project=True)
         os.makedirs(os.path.dirname(pdst), exist_ok=True)
@@ -310,11 +334,25 @@ class MapAnnotator:
         mask_name = maskpath_map[self._zones[name]["expansion"]] + "_mask.png"
         mask_path = maskbase_path / mask_name
 
-        map_layer = Image.open(self._get_path(name, backup=from_backup))
+        map_file_path = self._get_path(name, backup=from_backup)
+        if not os.path.exists(map_file_path):
+            raise FileNotFoundError(
+                f"Map file not found for zone '{name}': {map_file_path}"
+            )
+
+        if not os.path.exists(mask_path):
+            raise FileNotFoundError(
+                f"Mask file not found: {mask_path}. "
+                f"Expected mask for expansion '{self._zones[name]['expansion']}'."
+            )
+
+        map_layer = Image.open(map_file_path)
         mask_layer = Image.open(mask_path)
 
         if map_layer.size != mask_layer.size:
-            raise ValueError
+            raise ValueError(
+                f"Map size {map_layer.size} does not match mask size {mask_layer.size} for zone '{name}'"
+            )
 
         np_map = np.array(map_layer)
         np_mask = np.array(mask_layer)

@@ -113,10 +113,14 @@ class ZoneApi:
                     return next((item for item in candidates if item["ID"] == 26))[
                         "Url"
                     ]
-                raise Exception(candidates)
+                raise ValueError(
+                    f"Multiple zone candidates found for '{name}': {candidates}"
+                )
             return candidates[0]["Url"]
         else:
-            raise Exception(resp)
+            raise RuntimeError(
+                f"Failed to fetch zone URL for '{name}': HTTP {resp.status_code}"
+            )
 
     def get_zone_info(self, name):
         """Get the info about a zone"""
@@ -126,7 +130,9 @@ class ZoneApi:
             results = resp.json()["Maps"][0]
             return results
         else:
-            raise Exception(resp)
+            raise RuntimeError(
+                f"Failed to fetch zone info for '{name}': HTTP {resp.status_code}"
+            )
 
     def get_zone_data(self, info):
         """Build the data structure for the zone"""
@@ -155,7 +161,7 @@ class ZoneApi:
     def load_zone_info(self, zones=None):
         """Load the data (yaml only)"""
         with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
-            info = yaml.load(fp, Loader=yaml.Loader)
+            info = yaml.load(fp, Loader=yaml.SafeLoader)
         if zones:
             for zone in list(zones.keys()):
                 zones[zone].update(info[zone])
@@ -320,9 +326,16 @@ class Legend:
         self.space = config["legend"][
             "border_space"
         ]  # spacing between the two rectangles forming the border
-        self.font = ImageFont.truetype(
-            config["legend"]["font"], config["legend"]["font_size"]
-        )
+
+        # Validate font file exists
+        font_path = config["legend"]["font"]
+        if not Path(font_path).exists():
+            raise FileNotFoundError(
+                f"Font file not found: {font_path}. "
+                f"Please ensure the font file exists or update the path in config.yaml"
+            )
+
+        self.font = ImageFont.truetype(font_path, config["legend"]["font_size"])
         self.shadow_color = config["legend"]["shadow_color"]
         self.shadow_iterations = config["legend"]["shadow_iterations"]
         self.colors = config["colors"]
