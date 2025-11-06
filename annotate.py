@@ -46,15 +46,21 @@ class MapAnnotator:
                 "Check for proper indentation and syntax."
             )
 
-        self._base_path = pathlib.Path(
-            self._config["tool"]["textools_path"]
-        ).expanduser()
-        self._project_path = pathlib.Path(
-            self._config["tool"]["project_path"]
-        ).expanduser()
-        self._magickpath = self._config["tool"]["imagemagick_path"] or shutil.which(
-            "magick"
-        )
+        try:
+            self._base_path = pathlib.Path(
+                self._config["tool"]["textools_path"]
+            ).expanduser()
+            self._project_path = pathlib.Path(
+                self._config["tool"]["project_path"]
+            ).expanduser()
+            self._magickpath = self._config["tool"]["imagemagick_path"] or shutil.which(
+                "magick"
+            )
+        except KeyError as e:
+            raise KeyError(
+                f"Missing required configuration key: {e} in data/config.yaml. "
+                "Please check your configuration file."
+            )
 
         # Validate ImageMagick path
         if not self._magickpath:
