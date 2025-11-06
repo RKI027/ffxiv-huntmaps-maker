@@ -203,20 +203,11 @@
 
 ### 8. Invalid Zone/Mark References
 
-#### 8.1 Invalid zone name in commands
-- **Location**: `annotate.py:153` (annotate_map), `annotate.py:320` (blend_map)
+#### ~~8.1 Invalid zone name in commands~~ ✅ FIXED
+- **Location**: `annotate.py:93-103` (validation method), called by `_get_path:106`
 - **Issue**: KeyError when zone not in self._zones
 - **Impact**: Unclear if zone name is misspelled or not configured
-- **Suggested Fix**: Catch KeyError and provide guidance:
-  ```
-  try:
-    scale = self._zones[name]["scale"]
-  except KeyError:
-    available = ", ".join(sorted(self._zones.keys()))
-    raise ValueError(
-      f"Unknown zone '{name}'. Available zones: {available}"
-    )
-  ```
+- **Fix Applied**: Added _validate_zone method called by _get_path, listing available zones
 
 #### 8.2 Zone with no marks
 - **Location**: `annotate.py:169-176`

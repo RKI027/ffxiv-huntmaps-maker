@@ -90,7 +90,20 @@ class MapAnnotator:
         self._Mark, self._marks = MarksHelper.load_marks("data/marks.json")
         self._iscli = inspect.stack()[-3].function == "Fire"
 
+    def _validate_zone(self, name):
+        """Validate that a zone name exists in configuration."""
+        if name not in self._zones:
+            available = ", ".join(sorted(self._zones.keys())[:10])
+            total = len(self._zones)
+            if total > 10:
+                available += f"... ({total - 10} more)"
+            raise ValueError(
+                f"Unknown zone '{name}'. "
+                f"Available zones (showing up to 10): {available}"
+            )
+
     def _get_path(self, name, project=False, backup=False, ext=None):
+        self._validate_zone(name)
         base = self._base_path if not project else self._project_path
         base = base / "Saved" / "UI" / "Maps"
         region = self._zones[name]["region"]
