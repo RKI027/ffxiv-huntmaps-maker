@@ -144,6 +144,11 @@ class ZoneApi:
             for res in results:
                 if res["Name"] == name:
                     candidates.append(res)
+            if not candidates:
+                raise ValueError(
+                    f"Zone '{name}' not found on xivapi.com. "
+                    "Check the zone name spelling."
+                )
             if len(candidates) > 1:
                 if name == "Mor Dhona":
                     return next((item for item in candidates if item["ID"] == 26))[

@@ -144,18 +144,11 @@
 - **Possible Enhancement**: Could include response body for more context
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:48-112`
 
-#### 5.3 No results from zone search
-- **Location**: `helpers.py:119`
+#### ~~5.3 No results from zone search~~ ✅ FIXED
+- **Location**: `helpers.py:142-146`
 - **Issue**: IndexError when candidates[0] accessed on empty list
 - **Impact**: Unclear why zone wasn't found
-- **Suggested Fix**: Check if candidates is empty:
-  ```
-  if not candidates:
-    raise ValueError(
-      "Zone '{name}' not found on xivapi.com.
-       Check the zone name spelling."
-    )
-  ```
+- **Fix Applied**: Added check for empty candidates list with clear error message
 - **Test Coverage**: Already documented in `tests/test_error_handling.py:131-145`
 
 #### 5.4 Multiple zone candidates (ambiguous)
