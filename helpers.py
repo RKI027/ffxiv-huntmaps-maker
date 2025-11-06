@@ -90,7 +90,10 @@ class MarksHelper:
 
 
 class ZoneApi:
-    """Helper class to query xivapi.com and collect zone information"""
+    """Helper class to query xivapi.com and collect zone information.
+
+    Nothing fancy and only the load method is useful on a regular basis. Other methods
+    were used to put the data in a good shape."""
 
     def __init__(self, zones):
         self.base_url = "https://xivapi.com"
