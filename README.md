@@ -109,4 +109,4 @@ Use of the mods created with this tool is at your own risk. Square Enix does not
 
 ## Copyright
 
-Copyright @ Arkhelyi, 2020.
+Copyright @ Arkhelyi, 2020-2025.
