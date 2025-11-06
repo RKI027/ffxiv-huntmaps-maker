@@ -131,25 +131,11 @@
 
 **Note**: These operations interact with external API (xivapi.com) which is inherently unreliable
 
-#### 5.1 Network timeout
-- **Location**: `helpers.py:104`, `helpers.py:128`
+#### ~~5.1 Network timeout~~ ✅ FIXED
+- **Location**: `helpers.py:121-135`, `helpers.py:159-170`
 - **Issue**: requests may hang or raise Timeout with unclear context
 - **Impact**: User doesn't know if it's their network or the API
-- **Suggested Fix**: Add timeout parameter and catch exceptions:
-  ```
-  resp = requests.get(url, timeout=30)
-
-  except requests.Timeout:
-    raise RuntimeError(
-      "Request to xivapi.com timed out for zone '{name}'.
-       Check your internet connection or try again later."
-    )
-  except requests.ConnectionError:
-    raise RuntimeError(
-      "Failed to connect to xivapi.com for zone '{name}'.
-       Check your internet connection."
-    )
-  ```
+- **Fix Applied**: Added timeout=30 parameter and exception handlers for Timeout and ConnectionError
 - **Test Coverage**: Already documented in `tests/test_error_handling.py:115-128`
 
 #### 5.2 API HTTP errors

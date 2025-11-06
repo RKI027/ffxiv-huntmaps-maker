@@ -123,7 +123,21 @@ class ZoneApi:
         """query xivapi to find the url to access zone info.
 
         There's a trick to Mor Dhona as the zone exists under multiple id"""
-        resp = requests.get(f"{self.base_url}/search?indexes=PlaceName&string={name}")
+        try:
+            resp = requests.get(
+                f"{self.base_url}/search?indexes=PlaceName&string={name}",
+                timeout=30
+            )
+        except requests.Timeout:
+            raise RuntimeError(
+                f"Request to xivapi.com timed out for zone '{name}'. "
+                "Check your internet connection or try again later."
+            )
+        except requests.ConnectionError:
+            raise RuntimeError(
+                f"Failed to connect to xivapi.com for zone '{name}'. "
+                "Check your internet connection."
+            )
         if resp.ok:
             results = resp.json()["Results"]
             candidates = []
@@ -147,7 +161,18 @@ class ZoneApi:
     def get_zone_info(self, name):
         """Get the info about a zone"""
         zone_url = self._get_zone_url(name)
-        resp = requests.get(f"{self.base_url}{zone_url}")
+        try:
+            resp = requests.get(f"{self.base_url}{zone_url}", timeout=30)
+        except requests.Timeout:
+            raise RuntimeError(
+                f"Request to xivapi.com timed out for zone '{name}'. "
+                "Check your internet connection or try again later."
+            )
+        except requests.ConnectionError:
+            raise RuntimeError(
+                f"Failed to connect to xivapi.com for zone '{name}'. "
+                "Check your internet connection."
+            )
         if resp.ok:
             results = resp.json()["Maps"][0]
             return results
