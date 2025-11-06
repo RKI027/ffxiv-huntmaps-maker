@@ -71,6 +71,13 @@ class MarksHelper:
                 f"Marks data file not found: {filename}. "
                 "Please ensure data/marks.json exists."
             )
+        except json.JSONDecodeError as e:
+            raise json.JSONDecodeError(
+                f"Invalid JSON in marks file '{filename}' at line {e.lineno}: {e.msg}. "
+                "Please check the file format.",
+                e.msg,
+                e.lineno,
+            )
 
         Mark = namedtuple("Mark", marks[0])
         return Mark, [Mark(**mark) for mark in marks]

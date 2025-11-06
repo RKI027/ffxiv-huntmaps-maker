@@ -55,15 +55,11 @@
 - **Impact**: User doesn't know where marks file should be
 - **Fix Applied**: Added FileNotFoundError handler with clear message about expected location
 
-#### 2.2 Invalid JSON in marks.json
-- **Location**: `helpers.py:66-67`
+#### ~~2.2 Invalid JSON in marks.json~~ ✅ FIXED
+- **Location**: `helpers.py:74-78`
 - **Issue**: json.JSONDecodeError with limited context
 - **Impact**: User doesn't know how to fix the JSON
-- **Suggested Fix**: Catch json.JSONDecodeError:
-  ```
-  "Invalid JSON in marks file '{filename}' at line {lineno}: {msg}.
-   Please check the file format."
-  ```
+- **Fix Applied**: Added json.JSONDecodeError handler showing line number and error message
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:160-171`
 
 #### 2.3 Empty marks.json
