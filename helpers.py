@@ -190,6 +190,10 @@ class ZoneApi:
                 f"Zone information file not found: {self.cachename}.yaml. "
                 "Please ensure data/zone_info.yaml exists."
             )
+        except yaml.YAMLError as e:
+            raise yaml.YAMLError(
+                f"Invalid YAML in zone info file: {e}. Please check the file format."
+            )
         if zones:
             for zone in list(zones.keys()):
                 zones[zone].update(info[zone])

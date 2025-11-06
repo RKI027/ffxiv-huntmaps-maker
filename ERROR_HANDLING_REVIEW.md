@@ -75,14 +75,10 @@
 - **Fix Applied**: Added FileNotFoundError handler with clear message about expected file
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:173-180`
 
-#### 2.5 Invalid YAML in zone_info.yaml
-- **Location**: `helpers.py:163-164`
+#### ~~2.5 Invalid YAML in zone_info.yaml~~ ✅ FIXED
+- **Location**: `helpers.py:188-192`
 - **Issue**: yaml.YAMLError with cryptic message
-- **Suggested Fix**: Catch yaml.YAMLError:
-  ```
-  "Invalid YAML in zone info file at line {line}: {error}.
-   Please check the file format."
-  ```
+- **Fix Applied**: Added yaml.YAMLError handler with clear error message
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:182-195`
 
 ---
