@@ -63,8 +63,14 @@ class MarksHelper:
     @staticmethod
     def load_marks(filename):
         """Load the json file and build the list of namedtuples"""
-        with open(filename, "rt", encoding="utf-8") as fp:
-            marks = json.load(fp)
+        try:
+            with open(filename, "rt", encoding="utf-8") as fp:
+                marks = json.load(fp)
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Marks data file not found: {filename}. "
+                "Please ensure data/marks.json exists."
+            )
 
         Mark = namedtuple("Mark", marks[0])
         return Mark, [Mark(**mark) for mark in marks]

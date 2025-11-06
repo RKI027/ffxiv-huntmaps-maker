@@ -49,15 +49,11 @@
 
 ### 2. Data File Issues
 
-#### 2.1 Missing marks.json
-- **Location**: `helpers.py:66`, `annotate.py:61`
+#### ~~2.1 Missing marks.json~~ ✅ FIXED
+- **Location**: `helpers.py:66-73`
 - **Issue**: FileNotFoundError with no context
 - **Impact**: User doesn't know where marks file should be
-- **Suggested Fix**: Catch FileNotFoundError:
-  ```
-  "Marks data file not found: {filename}.
-   Please ensure data/marks.json exists."
-  ```
+- **Fix Applied**: Added FileNotFoundError handler with clear message about expected location
 
 #### 2.2 Invalid JSON in marks.json
 - **Location**: `helpers.py:66-67`
