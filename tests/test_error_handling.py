@@ -237,26 +237,15 @@ class TestValueErrors:
         """Test compute_columns with zero rows."""
         from helpers import compute_columns
 
-        # TODO: Should handle edge case of zero rows
-        # Current implementation may cause division by zero
-        try:
+        with pytest.raises(ValueError):
             rows, cols = compute_columns(10, 0)
-            # If it doesn't raise, verify behavior
-            assert cols >= 1
-        except ZeroDivisionError:
-            pytest.skip("compute_columns doesn't handle zero rows")
 
     def test_compute_columns_negative_values(self):
         """Test compute_columns with negative values."""
         from helpers import compute_columns
 
-        # TODO: Should validate inputs
-        # Current implementation may produce invalid results
-        try:
+        with pytest.raises(ValueError):
             rows, cols = compute_columns(-5, 3)
-            # Document current behavior
-        except (ValueError, ZeroDivisionError):
-            pass  # Expected
 
     def test_m2c_with_extreme_values(self):
         """Test coordinate conversion with extreme values."""

@@ -192,18 +192,11 @@
 - **Note**: Tests indicate "TODO: Current implementation raises string instead of exception"
 - **Investigation Needed**: Check if Position actually raises proper TypeErrors
 
-#### 7.2 Invalid values in compute_columns
-- **Location**: `helpers.py:255-262`
+#### ~~7.2 Invalid values in compute_columns~~ ✅ FIXED
+- **Location**: `helpers.py:328-332`
 - **Issue**: No validation of inputs; may cause ZeroDivisionError or invalid results
 - **Impact**: Negative or zero values could break legend layout
-- **Suggested Fix**: Add input validation:
-  ```
-  if n_rows <= 0 or n_items < 0:
-    raise ValueError(
-      f"Invalid grid parameters: n_items={n_items}, n_rows={n_rows}.
-       Both must be positive."
-    )
-  ```
+- **Fix Applied**: Added input validation with clear error message
 - **Test Coverage**: Already documented in `tests/test_error_handling.py:236-259`
 
 ---

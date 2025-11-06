@@ -329,6 +329,11 @@ class Position:
 def compute_columns(n_items, n_rows):
     """Compute the required number of columns given a number of items
     n_items to be displayed in a grid n_rows x n_cols"""
+    if n_rows <= 0 or n_items < 0:
+        raise ValueError(
+            f"Invalid grid parameters: n_items={n_items}, n_rows={n_rows}. "
+            "Both must be positive (n_rows > 0, n_items >= 0)."
+        )
     if n_rows > n_items:
         return n_items, 1
     d = n_items // n_rows
