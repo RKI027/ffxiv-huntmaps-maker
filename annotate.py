@@ -201,7 +201,13 @@ class MapAnnotator:
                 f"Map file not found for zone '{name}': {map_path}. "
                 f"Please ensure backup files exist by running backup_files() first."
             )
-        map_layer = Image.open(map_path)
+        try:
+            map_layer = Image.open(map_path)
+        except Image.UnidentifiedImageError:
+            raise ValueError(
+                f"Cannot open map file for '{name}': {map_path}. "
+                "File may be corrupted or in an unsupported format."
+            )
 
         marker_layer = Image.new("RGBA", map_layer.size, color=(0, 0, 0, 0))
 
@@ -404,8 +410,20 @@ class MapAnnotator:
                 f"Expected mask for expansion '{self._zones[name]['expansion']}'."
             )
 
-        map_layer = Image.open(map_file_path)
-        mask_layer = Image.open(mask_path)
+        try:
+            map_layer = Image.open(map_file_path)
+        except Image.UnidentifiedImageError:
+            raise ValueError(
+                f"Cannot open map file for '{name}': {map_file_path}. "
+                "File may be corrupted or in an unsupported format."
+            )
+        try:
+            mask_layer = Image.open(mask_path)
+        except Image.UnidentifiedImageError:
+            raise ValueError(
+                f"Cannot open mask file: {mask_path}. "
+                "File may be corrupted or in an unsupported format."
+            )
 
         if map_layer.size != mask_layer.size:
             raise ValueError(

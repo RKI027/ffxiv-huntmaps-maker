@@ -166,20 +166,11 @@
 
 ### 6. Image Operations
 
-#### 6.1 Invalid image format
-- **Location**: `annotate.py:164`, `annotate.py:349`
+#### ~~6.1 Invalid image format~~ ✅ FIXED
+- **Location**: `annotate.py:204-210`, `annotate.py:413-426`
 - **Issue**: PIL.UnidentifiedImageError with unclear context
 - **Impact**: User doesn't know which file is corrupted
-- **Suggested Fix**: Catch PIL exceptions:
-  ```
-  try:
-    map_layer = Image.open(map_path)
-  except PIL.UnidentifiedImageError:
-    raise ValueError(
-      "Cannot open map file for '{name}': {map_path}.
-       File may be corrupted or in an unsupported format."
-    )
-  ```
+- **Fix Applied**: Added Image.UnidentifiedImageError handlers for all Image.open calls
 
 #### 6.2 Image size mismatch (blend operation)
 - **Location**: `helpers.py:352-355` (already has good error handling!)
