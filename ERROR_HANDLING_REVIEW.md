@@ -209,17 +209,11 @@
 - **Impact**: Unclear if zone name is misspelled or not configured
 - **Fix Applied**: Added _validate_zone method called by _get_path, listing available zones
 
-#### 8.2 Zone with no marks
-- **Location**: `annotate.py:169-176`
+#### ~~8.2 Zone with no marks~~ ✅ FIXED
+- **Location**: `annotate.py:229-231`
 - **Issue**: Silent - creates empty annotation
 - **Impact**: User might not realize something is wrong
-- **Suggested Fix**: Log warning or check:
-  ```
-  zone_marks = self._get_zone_marks(name, True)
-  if not zone_marks:
-    import warnings
-    warnings.warn(f"No marks found for zone '{name}'")
-  ```
+- **Fix Applied**: Added warning when zone has no marks to alert user
 
 ---
 

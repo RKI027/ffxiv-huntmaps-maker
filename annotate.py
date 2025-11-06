@@ -226,6 +226,9 @@ class MapAnnotator:
 
         scale = self._zones[name]["scale"]
         zone_marks = self._get_zone_marks(name, True)
+        if not zone_marks:
+            import warnings
+            warnings.warn(f"No marks found for zone '{name}'. Annotated map will be empty.")
         spawns = defaultdict(dict)
         for mark, (rank, spots) in zone_marks.items():
             for p in spots:
