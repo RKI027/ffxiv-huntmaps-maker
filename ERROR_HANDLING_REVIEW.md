@@ -68,15 +68,11 @@
 - **Impact**: Unclear error about empty file
 - **Fix Applied**: Added check for empty marks list with clear error message
 
-#### 2.4 Missing zone_info.yaml
-- **Location**: `helpers.py:163`, `annotate.py:59`
+#### ~~2.4 Missing zone_info.yaml~~ ✅ FIXED
+- **Location**: `helpers.py:183-187`
 - **Issue**: FileNotFoundError with no context
 - **Impact**: User doesn't know this file needs to exist
-- **Suggested Fix**: Catch FileNotFoundError:
-  ```
-  "Zone information file not found: {cachename}.yaml.
-   Please ensure data/zone_info.yaml exists."
-  ```
+- **Fix Applied**: Added FileNotFoundError handler with clear message about expected file
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:173-180`
 
 #### 2.5 Invalid YAML in zone_info.yaml

@@ -182,8 +182,14 @@ class ZoneApi:
 
     def load_zone_info(self, zones=None):
         """Load the data (yaml only)"""
-        with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
-            info = yaml.load(fp, Loader=yaml.SafeLoader)
+        try:
+            with open(self.cachename + ".yaml", "rt", encoding="utf-8") as fp:
+                info = yaml.load(fp, Loader=yaml.SafeLoader)
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Zone information file not found: {self.cachename}.yaml. "
+                "Please ensure data/zone_info.yaml exists."
+            )
         if zones:
             for zone in list(zones.keys()):
                 zones[zone].update(info[zone])
