@@ -272,7 +272,13 @@ class MapAnnotator:
     def _save_map(self, img, name):
         src = self._get_path(name, ext="bmp")
         dst = src.with_suffix(".dds")
-        img.save(src, format="bmp")
+        try:
+            img.save(src, format="bmp")
+        except OSError as e:
+            raise OSError(
+                f"Failed to save map '{name}' to {src}: {e}. "
+                "Check available disk space and permissions."
+            )
         cmd = f'{self._magickpath} convert -define dds:compression=dxt1 -define dds:mipmaps=0 "{src}" "{dst}"'
         try:
             subprocess.run(cmd, capture_output=True, check=True, shell=True)
@@ -286,10 +292,22 @@ class MapAnnotator:
         src.unlink()
         pdst = self._get_path(name, ext="dds", project=True)
         os.makedirs(os.path.dirname(pdst), exist_ok=True)
-        shutil.copy(dst, pdst)
+        try:
+            shutil.copy(dst, pdst)
+        except OSError as e:
+            raise OSError(
+                f"Failed to copy map '{name}' to project directory {pdst}: {e}. "
+                "Check available disk space and permissions."
+            )
 
         preview_dst = pdst.with_suffix(".png")
-        img.save(preview_dst, format="png")
+        try:
+            img.save(preview_dst, format="png")
+        except OSError as e:
+            raise OSError(
+                f"Failed to save preview for '{name}' to {preview_dst}: {e}. "
+                "Check available disk space and permissions."
+            )
 
     def annotate_all(self):
         """Annotate and save all maps.

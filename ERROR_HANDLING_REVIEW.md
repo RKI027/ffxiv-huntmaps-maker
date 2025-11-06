@@ -102,15 +102,11 @@
 - **Impact**: User doesn't know they need write permissions
 - **Fix Applied**: Added PermissionError handler with clear guidance on checking permissions
 
-#### 3.4 Disk space issues during save
-- **Location**: `annotate.py:235`, `annotate.py:248-249`, `annotate.py:252`
+#### ~~3.4 Disk space issues during save~~ ✅ FIXED
+- **Location**: `annotate.py:275-310`
 - **Issue**: OSError with unclear message
 - **Impact**: User doesn't know disk is full
-- **Suggested Fix**: Catch OSError during save operations:
-  ```
-  "Failed to save map '{name}': {error}.
-   Check available disk space and permissions."
-  ```
+- **Fix Applied**: Added OSError handlers for all save operations with clear guidance
 
 #### 3.5 Missing directories for project saves
 - **Location**: `annotate.py:248` (already handles with exist_ok=True!)
