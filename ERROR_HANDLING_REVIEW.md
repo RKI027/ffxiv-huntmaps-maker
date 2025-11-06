@@ -30,15 +30,11 @@
 - **Impact**: User doesn't know which config value is missing
 - **Fix Applied**: Added KeyError exception handler showing which key is missing
 
-#### 1.4 Invalid color names
-- **Location**: Used throughout marker/legend drawing
+#### ~~1.4 Invalid color names~~ ✅ FIXED
+- **Location**: `annotate.py:75-85`
 - **Issue**: Pillow raises ValueError for invalid colors
 - **Impact**: Unclear which color specification is wrong
-- **Suggested Fix**: Validate colors at startup or catch ValueError during drawing:
-  ```
-  "Invalid color value '{color}' for rank '{rank}' in config.yaml.
-   Use named colors (e.g., 'red') or hex codes (e.g., '#FF0000')."
-  ```
+- **Fix Applied**: Added color validation at initialization with clear error message
 
 #### 1.5 Font file not found
 - **Location**: `helpers.py:331-336` (already has good error handling!)

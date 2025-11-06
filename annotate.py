@@ -72,6 +72,18 @@ class MapAnnotator:
                 f"ImageMagick path does not exist: {self._magickpath}"
             )
 
+        # Validate color values
+        from PIL import ImageColor
+        try:
+            colors = self._config.get("colors", {})
+            for rank, color in colors.items():
+                ImageColor.getrgb(color)
+        except (ValueError, AttributeError) as e:
+            raise ValueError(
+                f"Invalid color value '{color}' for rank '{rank}' in config.yaml. "
+                "Use named colors (e.g., 'red') or hex codes (e.g., '#FF0000')."
+            )
+
         zones = self._config["zones"]
         ZoneApi(zones.keys()).load_zone_info(zones)
         self._zones = zones
