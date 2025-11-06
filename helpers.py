@@ -125,8 +125,7 @@ class ZoneApi:
         There's a trick to Mor Dhona as the zone exists under multiple id"""
         try:
             resp = requests.get(
-                f"{self.base_url}/search?indexes=PlaceName&string={name}",
-                timeout=30
+                f"{self.base_url}/search?indexes=PlaceName&string={name}", timeout=30
             )
         except requests.Timeout:
             raise RuntimeError(

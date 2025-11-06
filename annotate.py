@@ -74,11 +74,12 @@ class MapAnnotator:
 
         # Validate color values
         from PIL import ImageColor
+
         try:
             colors = self._config.get("colors", {})
             for rank, color in colors.items():
                 ImageColor.getrgb(color)
-        except (ValueError, AttributeError) as e:
+        except (ValueError, AttributeError):
             raise ValueError(
                 f"Invalid color value '{color}' for rank '{rank}' in config.yaml. "
                 "Use named colors (e.g., 'red') or hex codes (e.g., '#FF0000')."
@@ -228,7 +229,10 @@ class MapAnnotator:
         zone_marks = self._get_zone_marks(name, True)
         if not zone_marks:
             import warnings
-            warnings.warn(f"No marks found for zone '{name}'. Annotated map will be empty.")
+
+            warnings.warn(
+                f"No marks found for zone '{name}'. Annotated map will be empty."
+            )
         spawns = defaultdict(dict)
         for mark, (rank, spots) in zone_marks.items():
             for p in spots:
