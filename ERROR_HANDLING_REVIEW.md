@@ -62,15 +62,11 @@
 - **Fix Applied**: Added json.JSONDecodeError handler showing line number and error message
 - **Test Coverage**: Already tested in `tests/test_error_handling.py:160-171`
 
-#### 2.3 Empty marks.json
-- **Location**: `helpers.py:69-70`
+#### ~~2.3 Empty marks.json~~ ✅ FIXED
+- **Location**: `helpers.py:80-84`
 - **Issue**: IndexError when accessing marks[0]
 - **Impact**: Unclear error about empty file
-- **Suggested Fix**: Check if marks list is empty:
-  ```
-  "Marks file '{filename}' is empty or has no valid mark entries.
-   Please ensure the file contains valid mark data."
-  ```
+- **Fix Applied**: Added check for empty marks list with clear error message
 
 #### 2.4 Missing zone_info.yaml
 - **Location**: `helpers.py:163`, `annotate.py:59`

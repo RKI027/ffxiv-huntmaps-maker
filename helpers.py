@@ -79,6 +79,12 @@ class MarksHelper:
                 e.lineno,
             )
 
+        if not marks or len(marks) == 0:
+            raise ValueError(
+                f"Marks file '{filename}' is empty or has no valid mark entries. "
+                "Please ensure the file contains valid mark data."
+            )
+
         Mark = namedtuple("Mark", marks[0])
         return Mark, [Mark(**mark) for mark in marks]
 
