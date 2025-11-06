@@ -40,6 +40,11 @@ class MapAnnotator:
                 "Configuration file not found at 'data/config.yaml'. "
                 "Please ensure the file exists or run from the correct directory."
             )
+        except yaml.YAMLError as e:
+            raise ValueError(
+                f"Invalid YAML syntax in 'data/config.yaml': {e}\n"
+                "Check for proper indentation and syntax."
+            )
 
         self._base_path = pathlib.Path(
             self._config["tool"]["textools_path"]

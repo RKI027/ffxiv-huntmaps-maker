@@ -18,15 +18,11 @@
 - **Impact**: User doesn't know what file is missing or where it should be
 - **Fix Applied**: Added try-except block with clear error message
 
-#### 1.2 Invalid YAML syntax
-- **Location**: `annotate.py:34-36`
+#### ~~1.2 Invalid YAML syntax~~ ✅ FIXED
+- **Location**: `annotate.py:34-47`
 - **Issue**: yaml.YAMLError with cryptic message
 - **Impact**: User doesn't understand what's wrong with their config
-- **Suggested Fix**: Catch yaml.YAMLError and provide guidance:
-  ```
-  "Invalid YAML syntax in 'data/config.yaml' at line X: {error}
-   Check for proper indentation and syntax."
-  ```
+- **Fix Applied**: Added yaml.YAMLError exception handler with clear guidance
 
 #### 1.3 Missing required config keys
 - **Location**: `annotate.py:38-46`
