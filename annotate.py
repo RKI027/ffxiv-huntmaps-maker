@@ -176,7 +176,13 @@ class MapAnnotator:
         for name in self._zones:
             path = self._get_path(name)
             bpath = self._get_path(name, backup=True)
-            shutil.copy(path, bpath)
+            try:
+                shutil.copy(path, bpath)
+            except FileNotFoundError:
+                raise FileNotFoundError(
+                    f"Source map file not found for zone '{name}': {path}. "
+                    "Please ensure you've exported the map from TexTools."
+                )
         print("Backup complete.")
 
     def annotate_map(self, name, save=False, show=True):

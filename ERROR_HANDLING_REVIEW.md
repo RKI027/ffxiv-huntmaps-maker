@@ -90,15 +90,11 @@
 - **Status**: ✅ GOOD - Clear message telling user to run backup_files() first
 - **Example**: This is good error handling!
 
-#### 3.2 Missing source files for backup
-- **Location**: `annotate.py:148-150`
+#### ~~3.2 Missing source files for backup~~ ✅ FIXED
+- **Location**: `annotate.py:179-185`
 - **Issue**: FileNotFoundError during shutil.copy with no context
 - **Impact**: User doesn't know which zone's source file is missing
-- **Suggested Fix**: Wrap in try-except per zone:
-  ```
-  "Source map file not found for zone '{name}': {path}.
-   Please ensure you've exported the map from TexTools."
-  ```
+- **Fix Applied**: Added try-except around shutil.copy with zone-specific error message
 
 #### 3.3 Permission errors during backup
 - **Location**: `annotate.py:150`
