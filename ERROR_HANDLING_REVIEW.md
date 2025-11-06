@@ -96,15 +96,11 @@
 - **Impact**: User doesn't know which zone's source file is missing
 - **Fix Applied**: Added try-except around shutil.copy with zone-specific error message
 
-#### 3.3 Permission errors during backup
-- **Location**: `annotate.py:150`
+#### ~~3.3 Permission errors during backup~~ ✅ FIXED
+- **Location**: `annotate.py:186-190`
 - **Issue**: PermissionError with no guidance
 - **Impact**: User doesn't know they need write permissions
-- **Suggested Fix**: Catch PermissionError:
-  ```
-  "Permission denied when creating backup for '{name}': {path}.
-   Please check file and directory permissions."
-  ```
+- **Fix Applied**: Added PermissionError handler with clear guidance on checking permissions
 
 #### 3.4 Disk space issues during save
 - **Location**: `annotate.py:235`, `annotate.py:248-249`, `annotate.py:252`

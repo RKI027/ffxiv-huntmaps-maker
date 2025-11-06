@@ -183,6 +183,11 @@ class MapAnnotator:
                     f"Source map file not found for zone '{name}': {path}. "
                     "Please ensure you've exported the map from TexTools."
                 )
+            except PermissionError:
+                raise PermissionError(
+                    f"Permission denied when creating backup for '{name}': {bpath}. "
+                    "Please check file and directory permissions."
+                )
         print("Backup complete.")
 
     def annotate_map(self, name, save=False, show=True):
